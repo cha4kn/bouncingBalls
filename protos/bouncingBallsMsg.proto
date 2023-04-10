@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+message Ball {
+	int32 id = 1; // Ball ID
+	double x = 2;   // Ball x position
+	double y = 3;   // Ball y position
+	double r = 4;   // Ball radius
+}
