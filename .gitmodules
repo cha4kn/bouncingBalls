@@ -1,3 +1,6 @@
 [submodule "backend/external/protobuf"]
 	path = backend/external/protobuf
 	url = https://github.com/protocolbuffers/protobuf
+[submodule "backend/external/zeromq"]
+	path = backend/external/zeromq
+	url = https://github.com/zeromq/cppzmq.git
