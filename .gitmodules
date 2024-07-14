@@ -1,0 +1,3 @@
+[submodule "backend/external/protobuf"]
+	path = backend/external/protobuf
+	url = https://github.com/protocolbuffers/protobuf
