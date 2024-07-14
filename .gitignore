@@ -1,2 +1,5 @@
 *.exe
 *.o
+build
+CMakeFiles
+CMakeCache.txt
