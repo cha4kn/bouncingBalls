@@ -26,12 +26,8 @@ context = zmq.Context()
 socket = context.socket(zmq.REQ)
 
 print("Connecting to Bouncing Balls server...")
-socket.connect("tcp://localhost:5555")
+socket.connect("tcp://127.0.0.1:5555")
 print("Connected to server!")
-
-
-
-
 
 def main():
     currentStateUpdate = ballProto.stateUpdate()
@@ -40,24 +36,24 @@ def main():
     ball.y = 10
     ball.r = 5
     ball_serialized = ball.SerializeToString()
-    print(ball_serialized)
 
     ball2 = ballProto.Ball()
     ball2.ParseFromString(ball_serialized)
-#    print(ball2)
  
     currentStateUpdate.balls.append(ball)
     currentStateUpdate.balls.append(ball2)
 
-    print(currentStateUpdate)
-    print(currentStateUpdate.SerializeToString())
-
-    time.sleep(2)
+    print("Initial state: " + str(currentStateUpdate))
+    socket.send(currentStateUpdate.SerializeToString())
+    print("Sent state update to server!")
+    
+    answer = socket.recv()
+    newState = ballProto.stateUpdate()
+    newState.ParseFromString(answer)
+    print("Received new state as reply: " + str(newState))
 
 def initializeAtRandom():
     return    
 
 if __name__ == "__main__":
     main()
-
-
