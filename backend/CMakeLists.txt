@@ -1,8 +1,18 @@
 cmake_minimum_required(VERSION 3.10)
 
 project(BouncingBalls)
-add_executable(BouncingBalls server.cpp)
+set(SOURCES server.cpp ${CMAKE_CURRENT_SOURCE_DIR}/../compiledProtos/cpp/bouncingBallsMessages.pb.cc)
+add_executable(BouncingBalls ${SOURCES})
+
+find_package(Protobuf REQUIRED)
+target_include_directories(BouncingBalls 
+    PRIVATE "${Protobuf_INCLUDE_DIR}"
+    PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../compiledProtos/cpp"
+    PRIVATE "${CMAKE_CURRENT_BINARY_DIR}"
+)
 
 add_subdirectory("external/zeromq")
-
-target_link_libraries(BouncingBalls cppzmq)
+target_link_libraries(BouncingBalls 
+    cppzmq
+    ${PROTOBUF_LIBRARY}
+)

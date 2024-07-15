@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+package ballProto;
+
 message stateUpdate {
 	repeated Ball balls = 1; // All the different balls
 	int32 ballCount = 2;
