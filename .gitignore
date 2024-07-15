@@ -50,3 +50,6 @@ CMakeUserPresets.json
 *.exe
 *.out
 *.app
+
+# Python stuff
+__pycache__/
