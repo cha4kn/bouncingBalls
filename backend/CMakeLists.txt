@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 project(BouncingBalls)
-set(SOURCES server.cpp ${CMAKE_CURRENT_SOURCE_DIR}/../compiledProtos/cpp/bouncingBallsMessages.pb.cc)
+set(SOURCES src/server.cpp ${CMAKE_CURRENT_SOURCE_DIR}/../compiledProtos/cpp/bouncingBallsMessages.pb.cc)
 add_executable(BouncingBalls ${SOURCES})
 
 find_package(Protobuf REQUIRED)
