@@ -6,7 +6,13 @@
 #include <stdio.h>
 #include <zmq.hpp>
 #include "bouncingBallsMessages.pb.h"
+#include <balls.h>
+
 using namespace std;
+
+void print(std::string toPrint) {
+    std::cout<<toPrint<<endl;
+}
 
 // Does zmq initialization
 zmq::socket_t* createZmqSocket() {
@@ -49,8 +55,43 @@ ballProto::stateUpdate initializeBallState() {
 }
 
 ballProto::stateUpdate calculateNextStateUpdate(ballProto::stateUpdate* previousUpdate){
-    std::cout<< "Not implemented yet!" << std::endl;
-    return *previousUpdate;
+    int size = previousUpdate->ballcount();
+    double x_vals[size];
+    double y_vals[size];
+    double vx_vals[size];
+    double vy_vals[size];
+    double r_vals[size];
+    double x_max = previousUpdate->xmax();
+    double y_max = previousUpdate->ymax();
+    
+    for (int i = 0; i < size; i++) {
+        ballProto::Ball tmpBall = previousUpdate->balls(i);
+        x_vals[i] = tmpBall.x();
+        y_vals[i] = tmpBall.y();
+        vx_vals[i] = tmpBall.vx();
+        vy_vals[i] = tmpBall.vy();
+        r_vals[i] = tmpBall.r();
+    }
+    
+    handleCompleteState(size, x_vals, y_vals, vx_vals, vy_vals, r_vals, x_max, y_max);
+
+    ballProto::stateUpdate newState;
+    for (int i = 0; i < size; i++) {
+        ballProto::Ball* tmpBall = newState.add_balls();
+        tmpBall->set_x(x_vals[i]);
+        tmpBall->set_y(y_vals[i]);
+        tmpBall->set_vx(vx_vals[i]);
+        tmpBall->set_vy(vy_vals[i]);
+        tmpBall->set_r(r_vals[i]);
+    }
+
+    newState.set_ballcount(size);
+    newState.set_xmax(x_max);
+    newState.set_ymax(y_max);
+
+    print("New state is: " + newState.DebugString());
+
+    return newState;
 }
 
 ballProto::stateUpdate constructStateUpdateFromReceivedMsg(zmq::message_t* receivedMessage) {
@@ -64,10 +105,6 @@ int main() {
     GOOGLE_PROTOBUF_VERIFY_VERSION;
     std::cout<<"Protobuf version OK!"<<endl;
 
-    ballProto::stateUpdate initialState = initializeBallState();    
-    std::cout<<"Here is the initial state: "<<endl;
-    std::cout<<initialState.DebugString()<<endl;
-
     std::cout<<"Creating server socket..."<<endl;
     zmq::socket_t* serverSocket = createZmqSocket();  
     std::cout<<"Server socket created!"<<endl;
@@ -77,11 +114,12 @@ int main() {
     while (true) {
         zmq::message_t receivedMessage;
         serverSocket->recv(receivedMessage, zmq::recv_flags::none);
-        std::cout<< "Received message: " << receivedMessage.to_string() << std::endl;
+        std::cout<< "Received a message!" << std::endl;
 
         // Convert message to ballProto::stateUpdate
         ballProto::stateUpdate receivedStateUpdate = constructStateUpdateFromReceivedMsg(&receivedMessage);
-        std::cout<< "Constructed stateUpdate: " << receivedStateUpdate.DebugString() << std::endl;
+        std::cout<< "Constructed stateUpdate from message: " << receivedStateUpdate.DebugString() << std::endl;
+        //std::cout<< "Constructed stateUpdate: " << receivedStateUpdate.DebugString() << std::endl;
 
         std::cout<<"Calculating next state update..."<<endl;
         ballProto::stateUpdate nextStateUpdate = calculateNextStateUpdate(&receivedStateUpdate);

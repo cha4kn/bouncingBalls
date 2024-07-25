@@ -3,10 +3,11 @@
 #include <random>
 #include <chrono>
 #include <thread>
+#include <balls.h>
 
 using namespace std;
 
-// Variables
+// Variables only used for testing
 int no_balls = 10;
 double x_max = 700.0;
 double y_max = 400.0;
@@ -14,29 +15,7 @@ double max_vx_initial = 4.0;
 double max_vy_initial = 4.0;
 double r_max = 10.0;
 
-struct Ball {
-    double vx; // Velocity x
-    double vy; // Velocity x
-    double x; //  x position
-    double y; //  y position
-    double r; // radius
-};
-
-void stepBallForward(Ball* ballPointer);
-
-void reverseVelX(Ball* ballPointer);
-
-void reverseVelY(Ball* ballPointer);
-
-void collideWalls(Ball* ballPointer);
-
-void collideBalls(Ball* ballPointer1, Ball* ballPointer2);
-
-double distanceBetweenBalls(Ball* ballPointer1, Ball* ballPointer2);
-
-double* getDifferenceVector(Ball* ballPointer1, Ball* ballPointer2);
-
-int main() {
+void testRun() {
     random_device rd;
     mt19937 gen(rd());
     uniform_real_distribution<double> dist(0.0, 1.0);
@@ -63,7 +42,7 @@ int main() {
             cout << "Ball: " << i << " - (x,y) = (" << ballArray[i].x << ", " << ballArray[i].y << ") - (vx,vy) = (" << ballArray[i].vx << ", " << ballArray[i].vy << ") - r = " << ballArray[i].r << endl;
 
 //            cout << "Colliding ball " << i << " with walls" << endl;
-            collideWalls((ptr + i));
+            collideWalls((ptr + i), x_max, y_max);
 //            this_thread::sleep_for(chrono::milliseconds(200));
 
             // Collide with other balls
@@ -78,24 +57,41 @@ int main() {
             }
         }
     }
-    return 0;
+}
+
+void performStateStep(Ball* ballArray, int ballCount, double xMax, double yMax) {
+    for (int i = 0; i < ballCount; i++) {
+        performBallStep(ballArray+i, xMax, yMax); // Step forward and handle walls
+        for (int j = i+1; j < ballCount; j++) { // Handle collisions with other balls
+            if (i == j) { // Don't collide ball with itself
+                break;
+            } else {
+                collideBalls((ballArray+i), (ballArray+j));
+            }
+        }
+    }
+}
+
+void performBallStep(Ball* ballPointer, double xMax, double yMax) {
+    stepBallForward(ballPointer);
+    collideWalls(ballPointer, xMax, yMax);
 }
 
 // Collide a ball with any walls, changing its velocity as needed
 // and repositioning it accordingly.
-void collideWalls(Ball* ballPointer) {
-    if ((ballPointer->x +  ballPointer->r) > x_max) { // Right
+void collideWalls(Ball* ballPointer, double xMax, double yMax) {
+    if ((ballPointer->x +  ballPointer->r) > xMax) { // Right
         cout << "Collided ball with right wall!" << endl;
         reverseVelX(ballPointer);
-        ballPointer->x = (x_max - ballPointer->r);
+        ballPointer->x = (xMax - ballPointer->r);
     } else if ((ballPointer->x - ballPointer->r) < 0){ // Left
         cout << "Collided ball with left wall!" << endl;
         reverseVelX(ballPointer);
         ballPointer->x = ballPointer->r;
-    } else if ((ballPointer->y +  ballPointer->r) > y_max) { // Up
+    } else if ((ballPointer->y +  ballPointer->r) > yMax) { // Up
         cout << "Collided ball with top wall!" << endl;
         reverseVelY(ballPointer);
-        ballPointer->y = (y_max - ballPointer->r);
+        ballPointer->y = (yMax - ballPointer->r);
     } else if ((ballPointer->y - ballPointer->r) < 0) { // Down
         cout << "Collided ball with bottom wall!" << endl;
         reverseVelY(ballPointer);
@@ -105,8 +101,9 @@ void collideWalls(Ball* ballPointer) {
 
 // See if two balls are close enough to collide, and if they are
 // update velocity (simple model)
+// *** I have hired my beloved gf to consult me on a proper physical bounce model
 void collideBalls(Ball* ballPointer1, Ball* ballPointer2) {
-    if (distanceBetweenBalls(ballPointer1, ballPointer2) < (ballPointer1->r + ballPointer2->r)) {
+    if (distanceBetweenBalls(ballPointer1, ballPointer2) <= (ballPointer1->r + ballPointer2->r)) {
         cout << "Collision between balls detected!" << endl;
         double velAmp1 = sqrt(pow(ballPointer1->vx, 2) + pow(ballPointer1->vy, 2));
         double velAmp2 = sqrt(pow(ballPointer2->vx, 2) + pow(ballPointer2->vy, 2));
@@ -157,4 +154,31 @@ void reverseVelX(Ball* ballPointer) {
 // Changes y-direction of ball 180 deg
 void reverseVelY(Ball* ballPointer) {
     ballPointer->vy *= -1;
+}
+
+void handleCompleteState(int ballCount, double* xValues, double* yValues, double* xVelocities, double* yVelocities, double* rValues, double xMax, double yMax) {
+    // Read the incoming values into our local Ball struct
+    Ball ballArray[ballCount];
+    for (int i = 0; i < ballCount; i++) {
+        Ball tmpBall;
+        tmpBall.x = xValues[i];
+        tmpBall.y = yValues[i];
+        tmpBall.vx = xVelocities[i];
+        tmpBall.vy = yVelocities[i];
+        tmpBall.r = rValues[i];
+        ballArray[i] = tmpBall;
+    }
+
+    // Perform the actual calculation for this step
+    performStateStep(ballArray, ballCount, xMax, yMax);
+
+    // Modify the incoming arrays with results
+    for (int i = 0; i < ballCount; i++) {
+        Ball tmpBall = ballArray[i];
+        xValues[i] = tmpBall.x;
+        yValues[i] = tmpBall.y;
+        xVelocities[i] = tmpBall.vx;
+        yVelocities[i] = tmpBall.vy;
+        rValues[i] = tmpBall.r;
+    }
 }

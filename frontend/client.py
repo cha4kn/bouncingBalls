@@ -15,11 +15,11 @@ import matplotlib.pyplot as plt
 import random as rd
 
 # Parameters of the ball world
-number_of_balls = 20
+number_of_balls = 100
 x_max = 200
 y_max = 150
-r_max = 10
-v_max = 5 # Applies similarly to x and y velocities
+r_max = 5
+v_max = 2 # Applies similarly to x and y velocities
 
 # --------- Setup -------------------------------------------------------------
 x_vals = np.zeros((number_of_balls,1))
@@ -73,23 +73,25 @@ def main():
     # Running loop
     while (True):
         socket.send(currentStateUpdate.SerializeToString())
-        print("Sent state update to server!")
+        print("Sent state update to server: " + str(currentStateUpdate))
         answer = socket.recv()
         
-        newState = ballProto.stateUpdate()
-        newState.ParseFromString(answer)
-        # print("Received new state as reply: " + str(newState))
-        print("Received new state from server!")
+        currentStateUpdate = ballProto.stateUpdate()
+        currentStateUpdate.ParseFromString(answer)
+        
+        print("Received new state as reply: " + str(currentStateUpdate))
+        # print("Received new state from server!")
         # i += 1
         # print("Handled " + str(i) + " messages in " + str(time.time() - time_stamp))
 
-        for ballIndex in range(number_of_balls):
-            tmpBall = newState.balls.pop(0)
-            x_vals[ballIndex] = tmpBall.x
-            y_vals[ballIndex] = tmpBall.y
+        i = 0
+        for tmpBall in currentStateUpdate.balls:
+            x_vals[i] = tmpBall.x
+            y_vals[i] = tmpBall.y
+            i += 1
 
         gui.plotBallsTmp(x_max, y_max, x_vals, y_vals)
-        time.sleep(0.5)
+        time.sleep(0.3)
 
 if __name__ == "__main__":
     main()
