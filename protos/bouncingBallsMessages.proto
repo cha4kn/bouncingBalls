@@ -4,13 +4,17 @@ package ballProto;
 
 message stateUpdate {
 	repeated Ball balls = 1; // All the different balls
-	int32 ballCount = 2;
-	int32 timeUTC = 3; // Timestamp for this update
+	int32 ballCount = 2;	// Number of balls
+	int32 timeUTC = 3;      // Timestamp for this update
+	int32 xMax = 4;		// Maximum x value for balls
+	int32 yMax = 5;		// Maximum y value for balls
 }
 
 message Ball {
-	int32 id = 1; // Ball ID
-	double x = 2;   // Ball x position
-	double y = 3;   // Ball y position
-	double r = 4;   // Ball radius
+	int32 id = 1;   // id
+	double x = 2;   // x position
+	double y = 3;   // y position
+	double vx = 4;	// x velocity
+	double vy = 5;	// y velocity
+	double r = 6;   // radius
 }

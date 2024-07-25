@@ -186,6 +186,8 @@ class stateUpdate PROTOBUF_FINAL :
     kBallsFieldNumber = 1,
     kBallCountFieldNumber = 2,
     kTimeUTCFieldNumber = 3,
+    kXMaxFieldNumber = 4,
+    kYMaxFieldNumber = 5,
   };
   // repeated .ballProto.Ball balls = 1;
   int balls_size() const;
@@ -223,6 +225,24 @@ class stateUpdate PROTOBUF_FINAL :
   void _internal_set_timeutc(::PROTOBUF_NAMESPACE_ID::int32 value);
   public:
 
+  // int32 xMax = 4;
+  void clear_xmax();
+  ::PROTOBUF_NAMESPACE_ID::int32 xmax() const;
+  void set_xmax(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_xmax() const;
+  void _internal_set_xmax(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
+  // int32 yMax = 5;
+  void clear_ymax();
+  ::PROTOBUF_NAMESPACE_ID::int32 ymax() const;
+  void set_ymax(::PROTOBUF_NAMESPACE_ID::int32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::int32 _internal_ymax() const;
+  void _internal_set_ymax(::PROTOBUF_NAMESPACE_ID::int32 value);
+  public:
+
   // @@protoc_insertion_point(class_scope:ballProto.stateUpdate)
  private:
   class _Internal;
@@ -233,6 +253,8 @@ class stateUpdate PROTOBUF_FINAL :
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::ballProto::Ball > balls_;
   ::PROTOBUF_NAMESPACE_ID::int32 ballcount_;
   ::PROTOBUF_NAMESPACE_ID::int32 timeutc_;
+  ::PROTOBUF_NAMESPACE_ID::int32 xmax_;
+  ::PROTOBUF_NAMESPACE_ID::int32 ymax_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_bouncingBallsMessages_2eproto;
 };
@@ -353,7 +375,9 @@ class Ball PROTOBUF_FINAL :
   enum : int {
     kXFieldNumber = 2,
     kYFieldNumber = 3,
-    kRFieldNumber = 4,
+    kVxFieldNumber = 4,
+    kVyFieldNumber = 5,
+    kRFieldNumber = 6,
     kIdFieldNumber = 1,
   };
   // double x = 2;
@@ -374,7 +398,25 @@ class Ball PROTOBUF_FINAL :
   void _internal_set_y(double value);
   public:
 
-  // double r = 4;
+  // double vx = 4;
+  void clear_vx();
+  double vx() const;
+  void set_vx(double value);
+  private:
+  double _internal_vx() const;
+  void _internal_set_vx(double value);
+  public:
+
+  // double vy = 5;
+  void clear_vy();
+  double vy() const;
+  void set_vy(double value);
+  private:
+  double _internal_vy() const;
+  void _internal_set_vy(double value);
+  public:
+
+  // double r = 6;
   void clear_r();
   double r() const;
   void set_r(double value);
@@ -401,6 +443,8 @@ class Ball PROTOBUF_FINAL :
   typedef void DestructorSkippable_;
   double x_;
   double y_;
+  double vx_;
+  double vy_;
   double r_;
   ::PROTOBUF_NAMESPACE_ID::int32 id_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
@@ -496,6 +540,46 @@ inline void stateUpdate::set_timeutc(::PROTOBUF_NAMESPACE_ID::int32 value) {
   // @@protoc_insertion_point(field_set:ballProto.stateUpdate.timeUTC)
 }
 
+// int32 xMax = 4;
+inline void stateUpdate::clear_xmax() {
+  xmax_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 stateUpdate::_internal_xmax() const {
+  return xmax_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 stateUpdate::xmax() const {
+  // @@protoc_insertion_point(field_get:ballProto.stateUpdate.xMax)
+  return _internal_xmax();
+}
+inline void stateUpdate::_internal_set_xmax(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  xmax_ = value;
+}
+inline void stateUpdate::set_xmax(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_xmax(value);
+  // @@protoc_insertion_point(field_set:ballProto.stateUpdate.xMax)
+}
+
+// int32 yMax = 5;
+inline void stateUpdate::clear_ymax() {
+  ymax_ = 0;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 stateUpdate::_internal_ymax() const {
+  return ymax_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::int32 stateUpdate::ymax() const {
+  // @@protoc_insertion_point(field_get:ballProto.stateUpdate.yMax)
+  return _internal_ymax();
+}
+inline void stateUpdate::_internal_set_ymax(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  
+  ymax_ = value;
+}
+inline void stateUpdate::set_ymax(::PROTOBUF_NAMESPACE_ID::int32 value) {
+  _internal_set_ymax(value);
+  // @@protoc_insertion_point(field_set:ballProto.stateUpdate.yMax)
+}
+
 // -------------------------------------------------------------------
 
 // Ball
@@ -560,7 +644,47 @@ inline void Ball::set_y(double value) {
   // @@protoc_insertion_point(field_set:ballProto.Ball.y)
 }
 
-// double r = 4;
+// double vx = 4;
+inline void Ball::clear_vx() {
+  vx_ = 0;
+}
+inline double Ball::_internal_vx() const {
+  return vx_;
+}
+inline double Ball::vx() const {
+  // @@protoc_insertion_point(field_get:ballProto.Ball.vx)
+  return _internal_vx();
+}
+inline void Ball::_internal_set_vx(double value) {
+  
+  vx_ = value;
+}
+inline void Ball::set_vx(double value) {
+  _internal_set_vx(value);
+  // @@protoc_insertion_point(field_set:ballProto.Ball.vx)
+}
+
+// double vy = 5;
+inline void Ball::clear_vy() {
+  vy_ = 0;
+}
+inline double Ball::_internal_vy() const {
+  return vy_;
+}
+inline double Ball::vy() const {
+  // @@protoc_insertion_point(field_get:ballProto.Ball.vy)
+  return _internal_vy();
+}
+inline void Ball::_internal_set_vy(double value) {
+  
+  vy_ = value;
+}
+inline void Ball::set_vy(double value) {
+  _internal_set_vy(value);
+  // @@protoc_insertion_point(field_set:ballProto.Ball.vy)
+}
+
+// double r = 6;
 inline void Ball::clear_r() {
   r_ = 0;
 }

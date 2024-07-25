@@ -67,6 +67,8 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_bouncingBallsMessages_2eproto:
   PROTOBUF_FIELD_OFFSET(::ballProto::stateUpdate, balls_),
   PROTOBUF_FIELD_OFFSET(::ballProto::stateUpdate, ballcount_),
   PROTOBUF_FIELD_OFFSET(::ballProto::stateUpdate, timeutc_),
+  PROTOBUF_FIELD_OFFSET(::ballProto::stateUpdate, xmax_),
+  PROTOBUF_FIELD_OFFSET(::ballProto::stateUpdate, ymax_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::ballProto::Ball, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -75,11 +77,13 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_bouncingBallsMessages_2eproto:
   PROTOBUF_FIELD_OFFSET(::ballProto::Ball, id_),
   PROTOBUF_FIELD_OFFSET(::ballProto::Ball, x_),
   PROTOBUF_FIELD_OFFSET(::ballProto::Ball, y_),
+  PROTOBUF_FIELD_OFFSET(::ballProto::Ball, vx_),
+  PROTOBUF_FIELD_OFFSET(::ballProto::Ball, vy_),
   PROTOBUF_FIELD_OFFSET(::ballProto::Ball, r_),
 };
 static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   { 0, -1, sizeof(::ballProto::stateUpdate)},
-  { 8, -1, sizeof(::ballProto::Ball)},
+  { 10, -1, sizeof(::ballProto::Ball)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
@@ -89,10 +93,11 @@ static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] =
 
 const char descriptor_table_protodef_bouncingBallsMessages_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
   "\n\033bouncingBallsMessages.proto\022\tballProto"
-  "\"Q\n\013stateUpdate\022\036\n\005balls\030\001 \003(\0132\017.ballPro"
+  "\"m\n\013stateUpdate\022\036\n\005balls\030\001 \003(\0132\017.ballPro"
   "to.Ball\022\021\n\tballCount\030\002 \001(\005\022\017\n\007timeUTC\030\003 "
-  "\001(\005\"3\n\004Ball\022\n\n\002id\030\001 \001(\005\022\t\n\001x\030\002 \001(\001\022\t\n\001y\030"
-  "\003 \001(\001\022\t\n\001r\030\004 \001(\001b\006proto3"
+  "\001(\005\022\014\n\004xMax\030\004 \001(\005\022\014\n\004yMax\030\005 \001(\005\"K\n\004Ball\022"
+  "\n\n\002id\030\001 \001(\005\022\t\n\001x\030\002 \001(\001\022\t\n\001y\030\003 \001(\001\022\n\n\002vx\030"
+  "\004 \001(\001\022\n\n\002vy\030\005 \001(\001\022\t\n\001r\030\006 \001(\001b\006proto3"
   ;
 static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_bouncingBallsMessages_2eproto_deps[1] = {
 };
@@ -102,7 +107,7 @@ static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_bou
 };
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_bouncingBallsMessages_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_bouncingBallsMessages_2eproto = {
-  false, false, descriptor_table_protodef_bouncingBallsMessages_2eproto, "bouncingBallsMessages.proto", 184,
+  false, false, descriptor_table_protodef_bouncingBallsMessages_2eproto, "bouncingBallsMessages.proto", 236,
   &descriptor_table_bouncingBallsMessages_2eproto_once, descriptor_table_bouncingBallsMessages_2eproto_sccs, descriptor_table_bouncingBallsMessages_2eproto_deps, 2, 0,
   schemas, file_default_instances, TableStruct_bouncingBallsMessages_2eproto::offsets,
   file_level_metadata_bouncingBallsMessages_2eproto, 2, file_level_enum_descriptors_bouncingBallsMessages_2eproto, file_level_service_descriptors_bouncingBallsMessages_2eproto,
@@ -132,16 +137,16 @@ stateUpdate::stateUpdate(const stateUpdate& from)
       balls_(from.balls_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&ballcount_, &from.ballcount_,
-    static_cast<size_t>(reinterpret_cast<char*>(&timeutc_) -
-    reinterpret_cast<char*>(&ballcount_)) + sizeof(timeutc_));
+    static_cast<size_t>(reinterpret_cast<char*>(&ymax_) -
+    reinterpret_cast<char*>(&ballcount_)) + sizeof(ymax_));
   // @@protoc_insertion_point(copy_constructor:ballProto.stateUpdate)
 }
 
 void stateUpdate::SharedCtor() {
   ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_stateUpdate_bouncingBallsMessages_2eproto.base);
   ::memset(&ballcount_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&timeutc_) -
-      reinterpret_cast<char*>(&ballcount_)) + sizeof(timeutc_));
+      reinterpret_cast<char*>(&ymax_) -
+      reinterpret_cast<char*>(&ballcount_)) + sizeof(ymax_));
 }
 
 stateUpdate::~stateUpdate() {
@@ -177,8 +182,8 @@ void stateUpdate::Clear() {
 
   balls_.Clear();
   ::memset(&ballcount_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&timeutc_) -
-      reinterpret_cast<char*>(&ballcount_)) + sizeof(timeutc_));
+      reinterpret_cast<char*>(&ymax_) -
+      reinterpret_cast<char*>(&ballcount_)) + sizeof(ymax_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -213,6 +218,20 @@ const char* stateUpdate::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID
       case 3:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
           timeutc_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 xMax = 4;
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
+          xmax_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 yMax = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
+          ymax_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -264,6 +283,18 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_timeutc(), target);
   }
 
+  // int32 xMax = 4;
+  if (this->xmax() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(4, this->_internal_xmax(), target);
+  }
+
+  // int32 yMax = 5;
+  if (this->ymax() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(5, this->_internal_ymax(), target);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -299,6 +330,20 @@ size_t stateUpdate::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
         this->_internal_timeutc());
+  }
+
+  // int32 xMax = 4;
+  if (this->xmax() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_xmax());
+  }
+
+  // int32 yMax = 5;
+  if (this->ymax() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_ymax());
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -339,6 +384,12 @@ void stateUpdate::MergeFrom(const stateUpdate& from) {
   if (from.timeutc() != 0) {
     _internal_set_timeutc(from._internal_timeutc());
   }
+  if (from.xmax() != 0) {
+    _internal_set_xmax(from._internal_xmax());
+  }
+  if (from.ymax() != 0) {
+    _internal_set_ymax(from._internal_ymax());
+  }
 }
 
 void stateUpdate::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
@@ -364,8 +415,8 @@ void stateUpdate::InternalSwap(stateUpdate* other) {
   _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
   balls_.InternalSwap(&other->balls_);
   ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(stateUpdate, timeutc_)
-      + sizeof(stateUpdate::timeutc_)
+      PROTOBUF_FIELD_OFFSET(stateUpdate, ymax_)
+      + sizeof(stateUpdate::ymax_)
       - PROTOBUF_FIELD_OFFSET(stateUpdate, ballcount_)>(
           reinterpret_cast<char*>(&ballcount_),
           reinterpret_cast<char*>(&other->ballcount_));
@@ -471,9 +522,23 @@ const char* Ball::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::inter
           ptr += sizeof(double);
         } else goto handle_unusual;
         continue;
-      // double r = 4;
+      // double vx = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 33)) {
+          vx_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else goto handle_unusual;
+        continue;
+      // double vy = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 41)) {
+          vy_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else goto handle_unusual;
+        continue;
+      // double r = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 49)) {
           r_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
           ptr += sizeof(double);
         } else goto handle_unusual;
@@ -524,10 +589,22 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(3, this->_internal_y(), target);
   }
 
-  // double r = 4;
+  // double vx = 4;
+  if (!(this->vx() <= 0 && this->vx() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(4, this->_internal_vx(), target);
+  }
+
+  // double vy = 5;
+  if (!(this->vy() <= 0 && this->vy() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(5, this->_internal_vy(), target);
+  }
+
+  // double r = 6;
   if (!(this->r() <= 0 && this->r() >= 0)) {
     target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(4, this->_internal_r(), target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(6, this->_internal_r(), target);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -556,7 +633,17 @@ size_t Ball::ByteSizeLong() const {
     total_size += 1 + 8;
   }
 
-  // double r = 4;
+  // double vx = 4;
+  if (!(this->vx() <= 0 && this->vx() >= 0)) {
+    total_size += 1 + 8;
+  }
+
+  // double vy = 5;
+  if (!(this->vy() <= 0 && this->vy() >= 0)) {
+    total_size += 1 + 8;
+  }
+
+  // double r = 6;
   if (!(this->r() <= 0 && this->r() >= 0)) {
     total_size += 1 + 8;
   }
@@ -604,6 +691,12 @@ void Ball::MergeFrom(const Ball& from) {
   }
   if (!(from.y() <= 0 && from.y() >= 0)) {
     _internal_set_y(from._internal_y());
+  }
+  if (!(from.vx() <= 0 && from.vx() >= 0)) {
+    _internal_set_vx(from._internal_vx());
+  }
+  if (!(from.vy() <= 0 && from.vy() >= 0)) {
+    _internal_set_vy(from._internal_vy());
   }
   if (!(from.r() <= 0 && from.r() >= 0)) {
     _internal_set_r(from._internal_r());
