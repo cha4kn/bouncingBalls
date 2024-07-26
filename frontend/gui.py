@@ -5,38 +5,25 @@ Created on Mon Apr 10 10:59:47 2023
 @author: Arvid
 """
 
-import matplotlib.pyplot as plt
-import time
-import numpy as np
-plt.ion()
+import pygame
 
-fig, ax = plt.subplots()
+pygame.init()
 
-def plotAllBalls(max_x, max_y, ball_x, ball_y, ball_r):
-    # Clear any previous data
-    ax.clear()
+# Colors
+c_white = (255, 255, 255)
+c_red = (255, 0, 0)
+c_green = (0, 255, 0)
+c_blue = (0, 0, 255)
 
-    # Show new data
-    ax.scatter(ball_x[np.nonzero(ball_x)], ball_y[np.nonzero(ball_y)])
-
-    ax.set_xlim([-0.1*max_x, 1.1*max_x])
-    ax.set_ylim([-0.1*max_y, 1.1*max_y])
-    ax.set_xlabel("x")
-    ax.set_ylabel("y")
-    ax.set_title("Bouncing Balls")
-
-    plt.draw()
-    plt.pause(0.01)
-    plt.show(block=True)
+def initGui(width, height):
+    global window
+    window = pygame.display.set_mode((width, height))
+    pygame.display.set_caption("Bouncing Balls")    
     
-def plotBallsTmp(max_x, max_y, balls_x, balls_y):
-    plt.figure()
-    plt.scatter(balls_x[np.nonzero(balls_x)], balls_y[np.nonzero(balls_y)])
-    plt.xlim([-0.1*max_x, 1.1*max_x])
-    plt.ylim([-0.1*max_y, 1.1*max_y])
-    plt.draw()
-    plt.pause(0.01)
-    plt.show()
-      
+def drawWindow(x_vals, y_vals, r_vals):
+    window.fill(c_white)
     
-    
+    for i in range(len(x_vals)):
+        pygame.draw.circle(window, c_red, (int(x_vals[i]), int(y_vals[i])), int(r_vals[i]))
+   
+    pygame.display.flip()
