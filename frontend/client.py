@@ -13,11 +13,11 @@ import bouncingBallsMessages_pb2 as ballProto
 import random as rd
 
 # Parameters of the ball world
-number_of_balls = 100
-x_max = 500
-y_max = 300
-r_max = 10
-v_max = 4 # Applies similarly to x and y velocities
+number_of_balls = 20
+x_max = 1200
+y_max = 800
+r_max = 50
+v_max = 6 # Applies similarly to x and y velocities
 
 # --------- Setup -------------------------------------------------------------
 x_vals = np.zeros((number_of_balls,1))
@@ -86,14 +86,12 @@ def main():
         # print("Handled " + str(i) + " messages in " + str(time.time() - time_stamp))
 
         # Save new x and y values for plotting
-        i = 0
-        for tmpBall in currentStateUpdate.balls:
-            x_vals[i] = tmpBall.x
-            y_vals[i] = tmpBall.y
-            i += 1
+        for ballIndex, tmpBall in enumerate(currentStateUpdate.balls):
+            x_vals[ballIndex] = tmpBall.x
+            y_vals[ballIndex] = tmpBall.y
 
         gui.drawWindow(x_vals, y_vals, r_vals)
-        time.sleep(0.1)
+        time.sleep(0.033)
 
 if __name__ == "__main__":
     main()
