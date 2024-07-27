@@ -59,3 +59,4 @@ in the GUI.
 2. Introduce some extra mechanic, such as ball colors switching from collisions.
 3. Make it possible for the user to manually set up the initial state in the GUI.
 4. Add interface for user to edit game parameters instead of going by config file.
+5. Add docker support for simple deployment!
