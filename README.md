@@ -9,11 +9,11 @@ moving within a rectangular area. There are two rules to this simulation:
 1. Balls bounce on walls
 2. Balls collide with eachother
 
-Most parameters of the simulation can be modified, such as world size, number of balls, ball sizes and speeds.  
-The backend of this program is written in C++ and the frontend is done in Python. The program is done in such a way  
-that it is possible to run the backend (server) on one computer and the frontend (client) on another computer on the  
-same network. Additionally, the backend server can handle multiple frontend clients simultaneously. Network message  
-serialization is done utilizing Google protocol buffers. Network programming is done using ZeroMQ.  
+Most parameters of the simulation can be modified, such as world size, number of balls, ball sizes and speeds. 
+The backend of this program is written in C++ and the frontend is done in Python. The program is written in 
+such a way that it is possible to run the backend (server) on one computer and the frontend (client) on 
+another computer on the same network. Additionally, the backend server can handle multiple frontend clients simultaneously.
+Network message serialization is done utilizing Google protocol buffers. Network programming is done using ZeroMQ.
 
 Below follows instructions on how to setup and run the program. At the bottom is a list of TODOs and IDEAs that will be added.
 
