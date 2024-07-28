@@ -20,11 +20,6 @@ Below follows instructions on how to setup and run the program. At the bottom is
 How to run
 ===================================================
 
-Setup
----------------------------------------------------
-*Coming soon...*  
-
-
 Backend  
 ---------------------------------------------------
 1. cd backend
@@ -37,8 +32,20 @@ Backend
 Frontend  
 ---------------------------------------------------
 
-Run the client.py script in a suitable Python environment (*details coming*).
+**Requirements:**
+1. python3
+2. python venv
+3. Internet connection to download repos using apt.
 
+**Setup**
+Write these terminal commands:
+1. cd frontend
+2. . setup_venv.sh (*the preceding dot is important!*)
+3. Edit the IP and port of the server within the script.
+
+**Run**
+1. python3 client.py
+2. Enjoy some BouncingBalls!
 
 Future Work
 ===================================================
