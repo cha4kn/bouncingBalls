@@ -37,14 +37,13 @@ Frontend
 2. python venv
 3. Internet connection to download repos using apt.
 
-**Setup**
-Write these terminal commands:
-1. cd frontend
-2. . setup_venv.sh (*the preceding dot is important!*)
+**Setup**  
+1. Terminal: "cd frontend"
+2. Terminal: ". setup_venv.sh" (*the preceding dot is important!*)
 3. Edit the IP and port of the server within the script.
 
 **Run**
-1. python3 client.py
+1. Terminal: "python3 client.py"
 2. Enjoy some BouncingBalls!
 
 Future Work
