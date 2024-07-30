@@ -36,7 +36,7 @@ By default, backend will use port 5555 on localhost. To change this you need to 
 5. cmake -S ..
 6. make
 
-**Run**
+**Run**  
 ./BouncingBalls
 
 Frontend  
