@@ -22,12 +22,22 @@ How to run
 
 Backend  
 ---------------------------------------------------
-1. cd backend
-2. mkdir build
-3. cd build
-4. cmake -S ..
-5. make
-6. ./BouncingBalls
+**Requirements:**
+1. libprotoc v.3.6.1 installed (sudo apt install protobuf-compiler)
+2. zeromq core library installed (https://github.com/zeromq/libzmq)
+
+By default, backend will use port 5555 on localhost. To change this you need to edit the server.cpp and do the Setup step below.
+
+**Setup:**
+1. git submodule update --init --recursive
+2. cd backend
+3. mkdir build
+4. cd build
+5. cmake -S ..
+6. make
+
+**Run**
+./BouncingBalls
 
 Frontend  
 ---------------------------------------------------
