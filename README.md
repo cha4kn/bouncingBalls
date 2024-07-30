@@ -54,8 +54,7 @@ TODOs
 
 1. Frontend: make pygame window more stable - right now it cannot be moved or closed without Windows reporting 
 it as a crash.
-2. Misc: introduce config files and terminal input arguments.
-3. Backend: introduce physically correct collision model.
+2. Backend: introduce physically correct collision model.
 
 IDEAs
 ---------------------------------------------------
