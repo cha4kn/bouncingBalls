@@ -1,0 +1,12 @@
+[COMM]
+server_ip = 127.0.0.1
+server_port = 5555
+
+[GUI]
+width = 600
+height = 450
+
+[INITIAL STATE]
+number_of_balls = 30
+max_ball_radius = 25
+max_ball_speed = 6

@@ -11,25 +11,64 @@ import numpy as np
 import gui
 import bouncingBallsMessages_pb2 as ballProto
 import random as rd
+import configparser as cp
 
-# Parameters of the ball world
-number_of_balls = 20
-x_max = 1200
-y_max = 800
-r_max = 50
-v_max = 6 # Applies similarly to x and y velocities
+# Config file parameters
+config_file_name = "config.txt"
+config_comm_section_name = "COMM"
+config_gui_section_name = "GUI"
+config_initial_state_section_name = "INITIAL STATE"
 
 # --------- Setup -------------------------------------------------------------
-x_vals = np.zeros((number_of_balls,1))
-y_vals = np.zeros((number_of_balls,1))
-r_vals = r_max * np.random.rand(number_of_balls, 1)
+def parseConfigFile():
+    global number_of_balls
+    global x_max
+    global y_max
+    global r_max
+    global v_max
+    global server_ip
+    global server_port
+    global x_vals
+    global y_vals
+    global r_vals
 
-context = zmq.Context()
-socket = context.socket(zmq.REQ)
+    config = cp.ConfigParser()
+    config.read_file(open(config_file_name))
 
-print("Connecting to Bouncing Balls server...")
-socket.connect("tcp://127.0.0.1:5555")
-print("Connected to server!")
+    # Parse config file key value pairs
+    server_ip = config.get(config_comm_section_name, 'server_ip')
+    server_port = config.get(config_comm_section_name, 'server_port')
+    x_max = int(config.get(config_gui_section_name, 'width'))
+    y_max = int(config.get(config_gui_section_name, 'height'))
+    number_of_balls = int(config.get(config_initial_state_section_name, 'number_of_balls'))
+    r_max = int(config.get(config_initial_state_section_name, 'max_ball_radius'))
+    v_max = int(config.get(config_initial_state_section_name, 'max_ball_speed'))
+
+    # Initialize arrays
+    x_vals = np.zeros((number_of_balls,1))
+    y_vals = np.zeros((number_of_balls,1))
+    r_vals = r_max * np.random.rand(number_of_balls, 1)
+
+    # Print info
+    print("Parsed config file. Found the following settings:")
+    print("--------------------------------------------------")
+    print("Server IP: " + server_ip)
+    print("Server Port: " + server_port)
+    print("Window Width: " + str(x_max))
+    print("Window Height: " + str(y_max))
+    print("Number of Balls: " + str(number_of_balls))
+    print("Max Ball Radius: " + str(r_max))
+    print("Max Ball Speed: " + str(v_max))
+    print("--------------------------------------------------")
+
+def setupZmqConnection():
+    context = zmq.Context()
+    global socket
+    socket = context.socket(zmq.REQ)
+
+    print("Connecting to Bouncing Balls server...")
+    socket.connect("tcp://" + server_ip + ":" + server_port)
+    print("Connected to server!")
 
 # Creates a first stateUpdate at random given the number of balls and bounds
 def initializeAtRandom():
@@ -62,7 +101,9 @@ def initializeAtRandom():
 def main():
     # i = 0
     # time_stamp = time.time()
-    
+    parseConfigFile()
+    setupZmqConnection()
+
     # Setup and plot initial state
     currentStateUpdate = initializeAtRandom()
     gui.initGui(x_max, y_max)
