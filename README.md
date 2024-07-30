@@ -50,7 +50,7 @@ Frontend
 **Setup**  
 1. Terminal: "cd frontend"
 2. Terminal: ". setup_venv.sh" (*the preceding dot is important!*)
-3. Edit the IP and port of the server within the script.
+3. Edit any run parameters inside the config.txt file.
 
 **Run**
 1. Terminal: "python3 client.py"
