@@ -8,6 +8,7 @@
 #include "bouncingBallsMessages.pb.h"
 #include <balls.h>
 #include <spdlog/spdlog.h>
+#include <json/json.h>
 
 using namespace std;
 

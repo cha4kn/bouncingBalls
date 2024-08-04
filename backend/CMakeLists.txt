@@ -14,10 +14,12 @@ target_include_directories(BouncingBalls
 
 add_subdirectory("external/zeromq")
 add_subdirectory("external/spdlog")
+add_subdirectory("external/jsoncpp")
 
 target_link_libraries(BouncingBalls
     PRIVATE
     cppzmq
     ${PROTOBUF_LIBRARY}
     spdlog::spdlog_header_only
+    jsoncpp_lib
 )
