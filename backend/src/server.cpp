@@ -1,9 +1,6 @@
-#include <iostream>
 #include <time.h>
 #include <random>
-#include <chrono>
-#include <thread>
-#include <stdio.h>
+#include <fstream>
 #include <zmq.hpp>
 #include "bouncingBallsMessages.pb.h"
 #include <balls.h>
@@ -12,8 +9,55 @@
 
 using namespace std;
 
+string config_file_name = "../backend_config.json";
+string port_conf_string;
+string log_level_conf_string;
+
+void readConfigFile() {
+    ifstream file_stream(config_file_name, ifstream::binary);
+    Json::Reader jsonReader;
+    Json::Value json_config;
+    Json::FastWriter jsonWriter;
+
+    file_stream >> json_config;
+    port_conf_string = json_config["port"].asString();
+    log_level_conf_string = json_config["logLevel"].asString();
+
+    cout << "-------------------------------------" << endl;
+    cout << "Found config variables: " << endl;
+    cout << "Port: " << port_conf_string << endl;
+    cout << "Log Level: " << log_level_conf_string << endl;
+    cout << "-------------------------------------" << endl;
+}
+
+// Sets up the log level depending on what was set in the config file
 void setupLogger() {
-    spdlog::set_level(spdlog::level::info);
+    cout << "Setting up logger..." << endl;
+    if (log_level_conf_string.compare("trace") == 0) {
+        cout << "Setting log level trace." << endl;
+        spdlog::set_level(spdlog::level::trace);
+    } else if (log_level_conf_string.compare("info") == 0) {
+        cout << "Setting log level info." << endl;
+        spdlog::set_level(spdlog::level::info);
+    } else if (log_level_conf_string.compare("debug") == 0) {
+        cout << "Setting log level debug." << endl;
+        spdlog::set_level(spdlog::level::debug);
+    } else if (log_level_conf_string.compare("warn") == 0) {
+        cout << "Setting log level warn." << endl;
+        spdlog::set_level(spdlog::level::warn);
+    } else if (log_level_conf_string.compare("error") == 0) {
+        cout << "Setting log level error." << endl;
+        spdlog::set_level(spdlog::level::err);
+    } else if (log_level_conf_string.compare("critical") == 0) {
+        cout << "Setting log level critical." << endl;
+        spdlog::set_level(spdlog::level::critical);
+    } else {
+        cout << "No fitting spdlog::level matches given config string: " << log_level_conf_string << endl;
+        cout << "Exiting program..." << endl;
+        exit(1);
+    }
+    cout << "Logger setup." << endl;
+    cout << "-------------------------------------" << endl;
 }
 
 // Does zmq initialization
@@ -25,7 +69,7 @@ zmq::socket_t* createZmqSocket() {
         zmq::socket_t* socket = new zmq::socket_t(*ctx, zmq::socket_type::rep);       
 
         spdlog::debug("Binding socket...");
-        socket->bind("tcp://127.0.0.1:5556");
+        socket->bind("tcp://127.0.0.1:" + port_conf_string);
         
         return socket;
     } catch (const zmq::error_t error) {
@@ -103,6 +147,7 @@ ballProto::stateUpdate constructStateUpdateFromReceivedMsg(zmq::message_t* recei
 }
 
 int main() {
+    readConfigFile();
     setupLogger();
 
     spdlog::info("Verifying protobuf version...");
