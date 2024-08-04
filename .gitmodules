@@ -1,3 +1,6 @@
 [submodule "backend/external/zeromq"]
 	path = backend/external/zeromq
 	url = https://github.com/zeromq/cppzmq.git
+[submodule "spdlog"]
+	path = backend/external/spdlog
+	url = https://github.com/gabime/spdlog
