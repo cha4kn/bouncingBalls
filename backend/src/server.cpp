@@ -7,11 +7,12 @@
 #include <zmq.hpp>
 #include "bouncingBallsMessages.pb.h"
 #include <balls.h>
+#include <spdlog/spdlog.h>
 
 using namespace std;
 
-void print(std::string toPrint) {
-    std::cout<<toPrint<<endl;
+void setupLogger() {
+    spdlog::set_level(spdlog::level::info);
 }
 
 // Does zmq initialization
@@ -19,28 +20,28 @@ zmq::socket_t* createZmqSocket() {
     try {
         zmq::context_t* ctx = new zmq::context_t(1);
 
-        std::cout<<"Socket create..."<<endl;
+        spdlog::debug("Creating socket...");
         zmq::socket_t* socket = new zmq::socket_t(*ctx, zmq::socket_type::rep);       
-                
-        std::cout<<"Socket bind..."<<endl;
-        socket->bind("tcp://127.0.0.1:5555");
-        std::cout<<"Socket return..."<<endl;
+
+        spdlog::debug("Binding socket...");
+        socket->bind("tcp://127.0.0.1:5556");
+        
         return socket;
     } catch (const zmq::error_t error) {
-        std::cout<<"Caught zmq exception when binding socket: " << error.what() <<endl;
+        spdlog::error('Caught zmq exception when binding socket: ' + error.what());
         return nullptr;
     } catch (const std::exception e) {
-        std::cout<<"Caught standard exception when binding socket: " << e.what() <<endl;
+        spdlog::error('Caught standard exception when binding socket: ' + e.what());
         return nullptr;
     } catch (...) {
-        std::cout<<"Caught unknown error when binding socket!"<<endl;
+        spdlog::error("Caught unknown error when binding socket!");
         return nullptr;
     }
 }
 
 // Creates a random initial state for testing
 ballProto::stateUpdate initializeBallState() {
-    std::cout<<"Adding balls to initial state..."<<endl;
+    spdlog::debug("Adding balls to initial state...");
     ballProto::stateUpdate initialState;    
     // Add balls to the state
     for (int i = 0; i < 10; i++) {
@@ -89,7 +90,7 @@ ballProto::stateUpdate calculateNextStateUpdate(ballProto::stateUpdate* previous
     newState.set_xmax(x_max);
     newState.set_ymax(y_max);
 
-    print("New state is: " + newState.DebugString());
+    spdlog::debug("New state is: " + newState.DebugString());
 
     return newState;
 }
@@ -101,33 +102,35 @@ ballProto::stateUpdate constructStateUpdateFromReceivedMsg(zmq::message_t* recei
 }
 
 int main() {
-    std::cout<<"Verifying protobuf version..."<<endl;
-    GOOGLE_PROTOBUF_VERIFY_VERSION;
-    std::cout<<"Protobuf version OK!"<<endl;
+    setupLogger();
 
-    std::cout<<"Creating server socket..."<<endl;
+    spdlog::info("Verifying protobuf version...");
+    GOOGLE_PROTOBUF_VERIFY_VERSION;
+    spdlog::info("Protobuf version OK!");
+
+    spdlog::info("Creating server socket...");
     zmq::socket_t* serverSocket = createZmqSocket();  
-    std::cout<<"Server socket created!"<<endl;
+    spdlog::info("Server socket created and bound!");
 
     // Start listening for messages
-    std::cout<<"Beginning to listen for updates."<<endl;
+    spdlog::info("Beginning to listen for updates.");
     while (true) {
         zmq::message_t receivedMessage;
         serverSocket->recv(receivedMessage, zmq::recv_flags::none);
-        std::cout<< "Received a message!" << std::endl;
+        spdlog::debug("Received a message!");
 
         // Convert message to ballProto::stateUpdate
         ballProto::stateUpdate receivedStateUpdate = constructStateUpdateFromReceivedMsg(&receivedMessage);
-        std::cout<< "Constructed stateUpdate from message: " << receivedStateUpdate.DebugString() << std::endl;
+        spdlog::debug("Constructed stateUpdate from message: " + receivedStateUpdate.DebugString());
         //std::cout<< "Constructed stateUpdate: " << receivedStateUpdate.DebugString() << std::endl;
 
-        std::cout<<"Calculating next state update..."<<endl;
+        spdlog::debug("Calculating next state update...");
         ballProto::stateUpdate nextStateUpdate = calculateNextStateUpdate(&receivedStateUpdate);
-        std::cout<<"Next state calculated!"<<endl;
+        spdlog::debug("Next state calculated!");
 
-        std::cout<<"Sending next state update to client..."<<endl;
+        spdlog::debug("Sending next state update to client...");
         serverSocket->send(zmq::buffer(nextStateUpdate.SerializeAsString()), zmq::send_flags::none);
-        std::cout<<"Next state update sent!"<<endl;
+        spdlog::debug("Next state update sent!");
     }
 
     return 0;

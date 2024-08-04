@@ -1,1 +1,1 @@
-cd build ; cmake -S .. ; make ; make clean
+cd build ; cmake -S .. ; make --trace

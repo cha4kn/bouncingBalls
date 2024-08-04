@@ -4,6 +4,7 @@
 #include <chrono>
 #include <thread>
 #include <balls.h>
+#include <spdlog/spdlog.h>
 
 using namespace std;
 
@@ -81,19 +82,19 @@ void performBallStep(Ball* ballPointer, double xMax, double yMax) {
 // and repositioning it accordingly.
 void collideWalls(Ball* ballPointer, double xMax, double yMax) {
     if ((ballPointer->x +  ballPointer->r) > xMax) { // Right
-        cout << "Collided ball with right wall!" << endl;
+        spdlog::debug("Collided ball with right wall!");
         reverseVelX(ballPointer);
         ballPointer->x = (xMax - ballPointer->r);
     } else if ((ballPointer->x - ballPointer->r) < 0){ // Left
-        cout << "Collided ball with left wall!" << endl;
+        spdlog::debug("Collided ball with left wall!");
         reverseVelX(ballPointer);
         ballPointer->x = ballPointer->r;
     } else if ((ballPointer->y +  ballPointer->r) > yMax) { // Up
-        cout << "Collided ball with top wall!" << endl;
+        spdlog::debug("Collided ball with top wall!");
         reverseVelY(ballPointer);
         ballPointer->y = (yMax - ballPointer->r);
     } else if ((ballPointer->y - ballPointer->r) < 0) { // Down
-        cout << "Collided ball with bottom wall!" << endl;
+        spdlog::debug("Collided ball with bottom wall!");
         reverseVelY(ballPointer);
         ballPointer->y = ballPointer->r;
     }
@@ -104,14 +105,14 @@ void collideWalls(Ball* ballPointer, double xMax, double yMax) {
 // *** I have hired my beloved gf to consult me on a proper physical bounce model
 void collideBalls(Ball* ballPointer1, Ball* ballPointer2) {
     if (distanceBetweenBalls(ballPointer1, ballPointer2) <= (ballPointer1->r + ballPointer2->r)) {
-        cout << "Collision between balls detected!" << endl;
+        spdlog::debug("Collision between balls detected!");
         double velAmp1 = sqrt(pow(ballPointer1->vx, 2) + pow(ballPointer1->vy, 2));
         double velAmp2 = sqrt(pow(ballPointer2->vx, 2) + pow(ballPointer2->vy, 2));
 
         double* vectorDiff = getDifferenceVector(ballPointer1, ballPointer2);
 
         // Change the velocities
-        cout << "Changing velocities!" << endl;
+        spdlog::debug("Changing velocities!");
         ballPointer1->vx = -velAmp1 * vectorDiff[0];
         ballPointer1->vy = -velAmp1 * vectorDiff[1];
 
@@ -128,7 +129,7 @@ double* getDifferenceVector(Ball* ballPointer1, Ball* ballPointer2) {
 
     double ampDiff = sqrt(pow(diffX, 2) + pow(diffY, 2));
 
-    cout << "Collision distance: " << ampDiff << endl;
+    spdlog::debug("Collision distance: " + std::to_string(ampDiff));
 
     double* result = new double[2];
     result[0] = diffX / ampDiff;
@@ -158,6 +159,8 @@ void reverseVelY(Ball* ballPointer) {
 
 void handleCompleteState(int ballCount, double* xValues, double* yValues, double* xVelocities, double* yVelocities, double* rValues, double xMax, double yMax) {
     // Read the incoming values into our local Ball struct
+
+    spdlog::debug("Converting incoming state to Ball structs...");
     Ball ballArray[ballCount];
     for (int i = 0; i < ballCount; i++) {
         Ball tmpBall;
@@ -170,8 +173,10 @@ void handleCompleteState(int ballCount, double* xValues, double* yValues, double
     }
 
     // Perform the actual calculation for this step
+    spdlog::debug("Performing a step...");
     performStateStep(ballArray, ballCount, xMax, yMax);
 
+    spdlog::debug("Saving results to incoming arrays...");
     // Modify the incoming arrays with results
     for (int i = 0; i < ballCount; i++) {
         Ball tmpBall = ballArray[i];
@@ -181,4 +186,5 @@ void handleCompleteState(int ballCount, double* xValues, double* yValues, double
         yVelocities[i] = tmpBall.vy;
         rValues[i] = tmpBall.r;
     }
+    spdlog::debug("Step completed!");
 }

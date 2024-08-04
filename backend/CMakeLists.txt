@@ -13,7 +13,11 @@ target_include_directories(BouncingBalls
 )
 
 add_subdirectory("external/zeromq")
-target_link_libraries(BouncingBalls 
+add_subdirectory("external/spdlog")
+
+target_link_libraries(BouncingBalls
+    PRIVATE
     cppzmq
     ${PROTOBUF_LIBRARY}
+    spdlog::spdlog_header_only
 )
