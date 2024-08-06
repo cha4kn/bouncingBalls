@@ -1,32 +1,139 @@
 #ifndef BALLS_H
 #define BALLS_H
 
-struct Ball {
-    double vx; // Velocity x
-    double vy; // Velocity x
-    double x; //  x position
-    double y; //  y position
+#include <spdlog/spdlog.h>
+
+class Ball {
+private:
+    double x, y; //  x, y position
+    double vx, vy; // Velocity x, y
     double r; // radius
+
+public:
+    Ball(double x, double y, double vx, double vy, double r) 
+        : x(x), y(y), vx(vx), vy(vy), r(r) {}
+
+    void stepForward () {
+        x += vx;
+        y += vy;
+    }
+
+    void collideWalls(int xMax, int yMax)
+    {
+        if ((x + r) > xMax)
+        { // Right
+            spdlog::debug("Collided ball with right wall!");
+            reverseVelX();
+            x = xMax - r;
+        }
+        else if ((x - r) < 0)
+        { // Left
+            spdlog::debug("Collided ball with left wall!");
+            reverseVelX();
+            x = r;
+        }
+        else if ((y + r) > yMax)
+        { // Up
+            spdlog::debug("Collided ball with top wall!");
+            reverseVelY();
+            y = yMax - r;
+        }
+        else if ((y - r) < 0)
+        { // Down
+            spdlog::debug("Collided ball with bottom wall!");
+            reverseVelY();
+            y = r;
+        }
+    }
+
+    double getX() {
+        return x;
+    }
+
+    double getY() {
+        return y;
+    }
+
+    void setX(double newX) {
+        x = newX;
+    }
+
+    void setY(double newY) {
+        y = newY;
+    }
+
+    double getVx() {
+        return vx;
+    }
+
+    double getVy() {
+        return vy;
+    }
+
+    void setVx(double newVx) {
+        vx = newVx;
+    }
+
+    void setVy(double newVy) {
+        vy = newVy;
+    }
+
+    double getR() {
+        return r;
+    }
+
+    void setR(double newR) {
+        r = newR;
+    }
+
+    void reverseVelX() {
+        vx *= -1;
+    }
+
+    void reverseVelY() {
+        vy *= -1;
+    }
 };
 
-void performStateStep(Ball* ballArray, int ballCount, double xMax, double yMax);
+class State {
+private:
+    std::vector<Ball> balls;
+    int max_x, max_y;
 
-void performBallStep(Ball* ballPointer, double xMax, double yMax);
+public:
+    State(int max_x, int max_y) : max_x(max_x), max_y(max_y) {}
 
-void collideWalls(Ball* ballPointer, double xMax, double yMax);
+    void addBall(const Ball& ball) {
+        balls.push_back(ball);
+    }
 
-void collideBalls(Ball* ballPointer1, Ball* ballPointer2);
+    std::vector<Ball>& getBalls() {
+        return balls;
+    }
 
-double* getDifferenceVector(Ball* ballPointer1, Ball* ballPointer2);
+    void setBalls(std::vector<Ball> newBalls) {
+        balls = newBalls;
+    }
 
-void stepBallForward(Ball* ballPointer);
+    int getMaxX() const {
+        return max_x;
+    }
 
-double distanceBetweenBalls(Ball* ballPointer1, Ball* ballPointer2);
+    int getMaxY() const {
+        return max_y;
+    }
+};
 
-void reverseVelX(Ball* ballPointer);
+void performStateStep(State& state);
 
-void reverseVelY(Ball* ballPointer);
+void performBallStep(Ball& ball, double xMax, double yMax);
 
-void handleCompleteState(int ballCount, double* xValues, double* yValues, double* xVelocities, double* yVelocities, double* rValues, double xMax, double yMax);
+void collideBalls(Ball& ball1, Ball& ball2);
+
+std::array<double, 2> getDifferenceVector(Ball& ball1, Ball& ball2);
+
+double distanceBetweenBalls(Ball& ball1, Ball& ball2);
+
+void handleCompleteState(State& state);
 
 #endif

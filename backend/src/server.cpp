@@ -102,38 +102,29 @@ ballProto::stateUpdate initializeBallState() {
 
 ballProto::stateUpdate calculateNextStateUpdate(ballProto::stateUpdate* previousUpdate){
     int size = previousUpdate->ballcount();
-    double x_vals[size];
-    double y_vals[size];
-    double vx_vals[size];
-    double vy_vals[size];
-    double r_vals[size];
-    double x_max = previousUpdate->xmax();
-    double y_max = previousUpdate->ymax();
     
+    State state = State(previousUpdate->xmax(), previousUpdate->ymax());
     for (int i = 0; i < size; i++) {
         ballProto::Ball tmpBall = previousUpdate->balls(i);
-        x_vals[i] = tmpBall.x();
-        y_vals[i] = tmpBall.y();
-        vx_vals[i] = tmpBall.vx();
-        vy_vals[i] = tmpBall.vy();
-        r_vals[i] = tmpBall.r();
+        state.addBall(Ball(tmpBall.x(), tmpBall.y(), tmpBall.vx(), tmpBall.vy(), tmpBall.r()));
     }
     
-    handleCompleteState(size, x_vals, y_vals, vx_vals, vy_vals, r_vals, x_max, y_max);
+    handleCompleteState(state);
 
     ballProto::stateUpdate newState;
+    std::vector<Ball> ballArray = state.getBalls();
     for (int i = 0; i < size; i++) {
         ballProto::Ball* tmpBall = newState.add_balls();
-        tmpBall->set_x(x_vals[i]);
-        tmpBall->set_y(y_vals[i]);
-        tmpBall->set_vx(vx_vals[i]);
-        tmpBall->set_vy(vy_vals[i]);
-        tmpBall->set_r(r_vals[i]);
+        tmpBall->set_x(ballArray[i].getX());
+        tmpBall->set_y(ballArray[i].getY());
+        tmpBall->set_vx(ballArray[i].getVx());
+        tmpBall->set_vy(ballArray[i].getVy());
+        tmpBall->set_r(ballArray[i].getR());
     }
 
     newState.set_ballcount(size);
-    newState.set_xmax(x_max);
-    newState.set_ymax(y_max);
+    newState.set_xmax(previousUpdate->xmax());
+    newState.set_ymax(previousUpdate->ymax());
 
     spdlog::debug("New state is: " + newState.DebugString());
 
