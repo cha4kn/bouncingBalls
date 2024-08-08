@@ -21,170 +21,108 @@ void testRun() {
     mt19937 gen(rd());
     uniform_real_distribution<double> dist(0.0, 1.0);
 
-    Ball ballArray[no_balls];
+    Ball* ballArray;
 
     // Initialization of balls
     for (int i = 0; i < no_balls; i++) {
-        ballArray[i].r = dist(gen) * (r_max );
-        ballArray[i].vx = dist(gen) * (max_vx_initial + max_vx_initial) - max_vx_initial;
-        ballArray[i].vy = dist(gen) * (max_vy_initial + max_vy_initial) - max_vy_initial;
-        ballArray[i].x = dist(gen) * (x_max - ballArray[i].r) + ballArray[i].r;
-        ballArray[i].y = dist(gen) * (y_max - ballArray[i].r) + ballArray[i].r;
+        ballArray[i].setR(dist(gen) * (r_max ));
+        ballArray[i].setVx(dist(gen) * (max_vx_initial + max_vx_initial) - max_vx_initial);
+        ballArray[i].setVy(dist(gen) * (max_vy_initial + max_vy_initial) - max_vy_initial);
+        ballArray[i].setX(dist(gen) * (x_max - ballArray[i].getR()) + ballArray[i].getR());
+        ballArray[i].setY(dist(gen) * (y_max - ballArray[i].getR()) + ballArray[i].getR());
 
-        cout << "Ball: " << i << " - (x,y) = (" << ballArray[i].x << ", " << ballArray[i].y << ") - (vx,vy) = (" << ballArray[i].vx << ", " << ballArray[i].vy << ") - r = " << ballArray[i].r << endl;
+        cout << "Ball: " << i << " - (x,y) = (" << ballArray[i].getX() << ", " << ballArray[i].getY() << ") - (vx,vy) = (" << ballArray[i].getVx() << ", " << ballArray[i].getVy() << ") - r = " << ballArray[i].getR() << endl;
     }
 
     // Start bouncing!!!!
     while (true) {
         // Bounce against walls
-        Ball* ptr = ballArray;
         for (int i = 0; i < no_balls; i++) {
-            stepBallForward((ptr+i));
-            cout << "Ball: " << i << " - (x,y) = (" << ballArray[i].x << ", " << ballArray[i].y << ") - (vx,vy) = (" << ballArray[i].vx << ", " << ballArray[i].vy << ") - r = " << ballArray[i].r << endl;
+            spdlog::debug("Stepping ball " + to_string(i) + " forward.");
+            ballArray[i].stepForward();
 
-//            cout << "Colliding ball " << i << " with walls" << endl;
-            collideWalls((ptr + i), x_max, y_max);
-//            this_thread::sleep_for(chrono::milliseconds(200));
+            spdlog::debug("Colliding ball " + to_string(i) + " with walls.");
+            ballArray[i].collideWalls(x_max, y_max);
 
             // Collide with other balls
+            spdlog::debug("Checking for ball collisions... ");
             for (int j = i+1; j < no_balls; j++) {
- //               cout << "Colliding ball " << i << " with ball " << j << endl;
-//                this_thread::sleep_for(chrono::milliseconds(100));
                 if (i == j) { // Don't collide ball with itself
                     break;
                 } else {
-                    collideBalls((ptr+i), (ptr+j));
+                    collideBalls(ballArray[i], ballArray[j]);
                 }
             }
         }
     }
 }
 
-void performStateStep(Ball* ballArray, int ballCount, double xMax, double yMax) {
-    for (int i = 0; i < ballCount; i++) {
-        performBallStep(ballArray+i, xMax, yMax); // Step forward and handle walls
-        for (int j = i+1; j < ballCount; j++) { // Handle collisions with other balls
+void performStateStep(State& state) {
+    std::vector<Ball> theBalls = state.getBalls();
+    int xMax = state.getMaxX();
+    int yMax = state.getMaxY();
+    int count = theBalls.size();
+    for (int i = 0; i < count; i++) {
+        Ball& currentBall = theBalls[i];
+        performBallStep(currentBall, xMax, yMax); // Step forward and handle walls
+        for (int j = i+1; j < count; j++) { // Handle collisions with other balls
             if (i == j) { // Don't collide ball with itself
                 break;
             } else {
-                collideBalls((ballArray+i), (ballArray+j));
+                collideBalls(currentBall, theBalls[j]);
             }
         }
     }
+    state.setBalls(theBalls);
 }
 
-void performBallStep(Ball* ballPointer, double xMax, double yMax) {
-    stepBallForward(ballPointer);
-    collideWalls(ballPointer, xMax, yMax);
-}
-
-// Collide a ball with any walls, changing its velocity as needed
-// and repositioning it accordingly.
-void collideWalls(Ball* ballPointer, double xMax, double yMax) {
-    if ((ballPointer->x +  ballPointer->r) > xMax) { // Right
-        spdlog::debug("Collided ball with right wall!");
-        reverseVelX(ballPointer);
-        ballPointer->x = (xMax - ballPointer->r);
-    } else if ((ballPointer->x - ballPointer->r) < 0){ // Left
-        spdlog::debug("Collided ball with left wall!");
-        reverseVelX(ballPointer);
-        ballPointer->x = ballPointer->r;
-    } else if ((ballPointer->y +  ballPointer->r) > yMax) { // Up
-        spdlog::debug("Collided ball with top wall!");
-        reverseVelY(ballPointer);
-        ballPointer->y = (yMax - ballPointer->r);
-    } else if ((ballPointer->y - ballPointer->r) < 0) { // Down
-        spdlog::debug("Collided ball with bottom wall!");
-        reverseVelY(ballPointer);
-        ballPointer->y = ballPointer->r;
-    }
+// Steps the ball forward and collides with walls
+void performBallStep(Ball& ball, double xMax, double yMax) {
+    ball.stepForward();
+    ball.collideWalls(xMax, yMax);
 }
 
 // See if two balls are close enough to collide, and if they are
 // update velocity (simple model)
 // *** I have hired my beloved gf to consult me on a proper physical bounce model
-void collideBalls(Ball* ballPointer1, Ball* ballPointer2) {
-    if (distanceBetweenBalls(ballPointer1, ballPointer2) <= (ballPointer1->r + ballPointer2->r)) {
+void collideBalls(Ball& ball1, Ball& ball2) {
+    if (distanceBetweenBalls(ball1, ball2) <= (ball1.getR() + ball2.getR())) {
         spdlog::debug("Collision between balls detected!");
-        double velAmp1 = sqrt(pow(ballPointer1->vx, 2) + pow(ballPointer1->vy, 2));
-        double velAmp2 = sqrt(pow(ballPointer2->vx, 2) + pow(ballPointer2->vy, 2));
+        double velAmp1 = sqrt(pow(ball1.getVx(), 2) + pow(ball1.getVy(), 2));
+        double velAmp2 = sqrt(pow(ball2.getVx(), 2) + pow(ball2.getVy(), 2));
 
-        double* vectorDiff = getDifferenceVector(ballPointer1, ballPointer2);
+        array<double, 2> vectorDiff = getDifferenceVector(ball1, ball2);
 
         // Change the velocities
         spdlog::debug("Changing velocities!");
-        ballPointer1->vx = -velAmp1 * vectorDiff[0];
-        ballPointer1->vy = -velAmp1 * vectorDiff[1];
+        ball1.setVx(-velAmp1 * vectorDiff[0]);
+        ball1.setVy(-velAmp1 * vectorDiff[1]);
 
-        ballPointer2->vx = velAmp2 * vectorDiff[0];
-        ballPointer2->vy = velAmp2 * vectorDiff[1];
+        ball2.setVx(velAmp2 * vectorDiff[0]);
+        ball2.setVy(velAmp2 * vectorDiff[1]);
     }
 }
 
 // Returns the unit vector from ball 1 to ball 2.
-double* getDifferenceVector(Ball* ballPointer1, Ball* ballPointer2) {
+array<double, 2> getDifferenceVector(Ball& ball1, Ball& ball2) {
 
-    double diffX = ballPointer2->x - ballPointer1->x;
-    double diffY = ballPointer2->y - ballPointer1->y;
+    double diffX = ball2.getX() - ball1.getX();
+    double diffY = ball2.getY() - ball1.getY();
 
     double ampDiff = sqrt(pow(diffX, 2) + pow(diffY, 2));
 
     spdlog::debug("Collision distance: " + std::to_string(ampDiff));
 
-    double* result = new double[2];
-    result[0] = diffX / ampDiff;
-    result[1] = diffY / ampDiff;
-    return result;
+    return {diffX / ampDiff, diffY / ampDiff};
 }
 
-
-void stepBallForward(Ball* ballPointer) {
-    ballPointer->x += ballPointer->vx;
-    ballPointer->y += ballPointer->vy;
+double distanceBetweenBalls(Ball& ball1, Ball& ball2) {
+    return sqrt(pow(ball1.getX() - ball2.getX(), 2) + pow(ball1.getY() - ball2.getY(), 2));
 }
 
-double distanceBetweenBalls(Ball* ballPointer1, Ball* ballPointer2) {
-    return sqrt(pow(ballPointer1->x - ballPointer2->x, 2) + pow(ballPointer1->y - ballPointer2->y, 2));
-}
-
-// Changes x-direction of ball 180 deg
-void reverseVelX(Ball* ballPointer) {
-    ballPointer->vx *= -1;
-}
-
-// Changes y-direction of ball 180 deg
-void reverseVelY(Ball* ballPointer) {
-    ballPointer->vy *= -1;
-}
-
-void handleCompleteState(int ballCount, double* xValues, double* yValues, double* xVelocities, double* yVelocities, double* rValues, double xMax, double yMax) {
-    // Read the incoming values into our local Ball struct
-
-    spdlog::debug("Converting incoming state to Ball structs...");
-    Ball ballArray[ballCount];
-    for (int i = 0; i < ballCount; i++) {
-        Ball tmpBall;
-        tmpBall.x = xValues[i];
-        tmpBall.y = yValues[i];
-        tmpBall.vx = xVelocities[i];
-        tmpBall.vy = yVelocities[i];
-        tmpBall.r = rValues[i];
-        ballArray[i] = tmpBall;
-    }
-
+void handleCompleteState(State& state) {
     // Perform the actual calculation for this step
     spdlog::debug("Performing a step...");
-    performStateStep(ballArray, ballCount, xMax, yMax);
-
-    spdlog::debug("Saving results to incoming arrays...");
-    // Modify the incoming arrays with results
-    for (int i = 0; i < ballCount; i++) {
-        Ball tmpBall = ballArray[i];
-        xValues[i] = tmpBall.x;
-        yValues[i] = tmpBall.y;
-        xVelocities[i] = tmpBall.vx;
-        yVelocities[i] = tmpBall.vy;
-        rValues[i] = tmpBall.r;
-    }
+    performStateStep(state); // TODO: restructure this method
     spdlog::debug("Step completed!");
 }
