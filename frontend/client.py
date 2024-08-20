@@ -31,6 +31,7 @@ def parseConfigFile():
     global x_vals
     global y_vals
     global r_vals
+    global max_fps
 
     config = cp.ConfigParser()
     config.read_file(open(config_file_name))
@@ -43,6 +44,7 @@ def parseConfigFile():
     number_of_balls = int(config.get(config_initial_state_section_name, 'number_of_balls'))
     r_max = int(config.get(config_initial_state_section_name, 'max_ball_radius'))
     v_max = int(config.get(config_initial_state_section_name, 'max_ball_speed'))
+    max_fps = int(config.get(config_gui_section_name, 'max_fps'))
 
     # Initialize arrays
     x_vals = np.zeros((number_of_balls,1))
@@ -56,6 +58,7 @@ def parseConfigFile():
     print("Server Port: " + server_port)
     print("Window Width: " + str(x_max))
     print("Window Height: " + str(y_max))
+    print("Max FPS: " + str(max_fps))
     print("Number of Balls: " + str(number_of_balls))
     print("Max Ball Radius: " + str(r_max))
     print("Max Ball Speed: " + str(v_max))
@@ -132,7 +135,7 @@ def main():
             y_vals[ballIndex] = tmpBall.y
 
         gui.drawWindow(x_vals, y_vals, r_vals)
-        time.sleep(0.033)
+        time.sleep(1/max_fps)
 
 if __name__ == "__main__":
     main()
