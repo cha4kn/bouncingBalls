@@ -57,14 +57,34 @@ void testRun() {
     }
 }
 
-void performStateStep(State& state) {
+void performStateStepRectangular(State& state) {
     std::vector<Ball> theBalls = state.getBalls();
     int xMax = state.getMaxX();
     int yMax = state.getMaxY();
     int count = theBalls.size();
     for (int i = 0; i < count; i++) {
         Ball& currentBall = theBalls[i];
-        performBallStep(currentBall, xMax, yMax); // Step forward and handle walls
+        performBallStepRectangular(currentBall, xMax, yMax); // Step forward and handle walls
+        for (int j = i+1; j < count; j++) { // Handle collisions with other balls
+            if (i == j) { // Don't collide ball with itself
+                break;
+            } else {
+                collideBalls(currentBall, theBalls[j]);
+            }
+        }
+    }
+    state.setBalls(theBalls);
+}
+
+void performStateStepCircular(State& state) {
+    std::vector<Ball> theBalls = state.getBalls();
+    int xMax = state.getMaxX();
+    int yMax = state.getMaxY();
+    int count = theBalls.size();
+    double radius = state.getRadius();
+    for (int i = 0; i < count; i++) {
+        Ball& currentBall = theBalls[i];
+        performBallStepCircular(currentBall, radius); // Step forward and handle walls
         for (int j = i+1; j < count; j++) { // Handle collisions with other balls
             if (i == j) { // Don't collide ball with itself
                 break;
@@ -77,9 +97,15 @@ void performStateStep(State& state) {
 }
 
 // Steps the ball forward and collides with walls
-void performBallStep(Ball& ball, double xMax, double yMax) {
+void performBallStepRectangular(Ball& ball, double xMax, double yMax) {
     ball.stepForward();
     ball.collideWalls(xMax, yMax);
+}
+
+// Steps the ball forward and collides with walls
+void performBallStepCircular(Ball& ball, double circleRadius) {
+    ball.stepForward();
+    ball.collideWallsCircle(circleRadius);
 }
 
 // See if two balls are close enough to collide, and if they are
@@ -122,7 +148,15 @@ double distanceBetweenBalls(Ball& ball1, Ball& ball2) {
 
 void handleCompleteState(State& state) {
     // Perform the actual calculation for this step
-    spdlog::debug("Performing a step...");
-    performStateStep(state); // TODO: restructure this method
+    spdlog::debug("Performing circular step...");
+    performStateStepCircular(state);
+
+/*     if (state.getRectangular()) {
+        spdlog::debug("Performing rectangular step...");
+        performStateStepRectangular(state); // TODO: restructure this method
+    } else {
+        spdlog::debug("Performing circular step...");
+        performStateStepCircular(state);
+    } */
     spdlog::debug("Step completed!");
 }

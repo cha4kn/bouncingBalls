@@ -6,8 +6,10 @@ message stateUpdate {
 	repeated Ball balls = 1; // All the different balls
 	int32 ballCount = 2;	// Number of balls
 	int32 timeUTC = 3;      // Timestamp for this update
-	int32 xMax = 4;		// Maximum x value for balls
-	int32 yMax = 5;		// Maximum y value for balls
+	int32 xMax = 4;		// Maximum x value for balls (rectangle world shape)
+	int32 yMax = 5;		// Maximum y value for balls (rectangle world shape)
+	string worldShape = 6;  // "circle" or "rectangle"
+	int32 circleRadius = 7; // Only for circle wordl shape
 }
 
 message Ball {

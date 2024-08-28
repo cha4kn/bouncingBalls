@@ -102,8 +102,15 @@ ballProto::stateUpdate initializeBallState() {
 
 ballProto::stateUpdate calculateNextStateUpdate(ballProto::stateUpdate* previousUpdate){
     int size = previousUpdate->ballcount();
-    
-    State state = State(previousUpdate->xmax(), previousUpdate->ymax());
+    std::string world_shape = previousUpdate->worldshape();
+    bool rectangular;
+    if (std::strcmp(world_shape.c_str(), "rectangle") == 0) {
+        rectangular = true;
+    } else {
+        rectangular = false;
+    }
+
+    State state = State(previousUpdate->xmax(), previousUpdate->ymax(), rectangular, previousUpdate->circleradius());
     for (int i = 0; i < size; i++) {
         ballProto::Ball tmpBall = previousUpdate->balls(i);
         state.addBall(Ball(tmpBall.x(), tmpBall.y(), tmpBall.vx(), tmpBall.vy(), tmpBall.r()));
@@ -122,6 +129,7 @@ ballProto::stateUpdate calculateNextStateUpdate(ballProto::stateUpdate* previous
         tmpBall->set_r(ballArray[i].getR());
     }
 
+    newState.set_worldshape(world_shape);
     newState.set_ballcount(size);
     newState.set_xmax(previousUpdate->xmax());
     newState.set_ymax(previousUpdate->ymax());
