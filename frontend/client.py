@@ -127,6 +127,7 @@ def sanityCheckParameters() -> bool:
     
     if (world_shape not in allowed_shapes):
         print("world_shape: " + world_shape + " is not supported!")
+        print("Supported world shapes are: " + ', '.join(allowed_shapes))
         return False
     
     if (circle_radius < 1):
