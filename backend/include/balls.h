@@ -48,17 +48,17 @@ public:
 
     void collideWallsCircle(int circleRadius)
     {
-        if (std::sqrt(std::pow(x, 2) + std::pow(y, 2) + r) > circleRadius)
+        if (std::sqrt(std::pow(x, 2) + std::pow(y, 2)) + r > circleRadius)
         {
             spdlog::debug("Collided ball with circle wall!");
             
-            double theta = thetaAngle(x ,y); // Polar coordinates
+            double theta = thetaAngle(x , y); // Polar coordinates
             // Also move ball to precisely touch wall
             x = std::cos(theta) * (circleRadius - r);
             y = std::sin(theta) * (circleRadius - r);
 
             spdlog::debug("Collision theta is: " + std::to_string(theta*180.0/M_PI) + " degrees.");
-            std::array<double, 2> normalVector = {-circleRadius * std::cos(theta), -circleRadius * std::sin(theta)}; // Points into circle
+            std::array<double, 2> normalVector = {-std::cos(theta), -std::sin(theta)}; // Points into circle
             spdlog::debug("Normal vector (x,y) = (" + std::to_string(normalVector[0])+ ","+std::to_string(normalVector[1]));
 
             std::array<double, 2> anglesVector = findIncidentAngleToNormal(normalVector, circleRadius);
@@ -83,11 +83,7 @@ public:
                 return 2 * M_PI + std::atan(y_coord / x_coord);
             }
         } else if (x_coord < 0) {
-            if (y_coord > 0) {
-                return M_PI + std::atan(y_coord / x_coord);
-            } else {
-                return M_PI + std::atan(y_coord / x_coord);
-            }
+            return M_PI + std::atan(y_coord / x_coord);
         } else if (x_coord == 0) {
             if (y_coord > 0) {
                 return M_PI / 2;
@@ -106,12 +102,12 @@ public:
     void setNewVelocity(std::array<double, 2> normalVector, std::array<double, 2> anglesVector) {
         // Find which side of normal the ball is on using cross product.
         // Find new velocity vector accordingly given the incidentAngle.
-        bool crossProductSignNegative = std::signbit(std::sin(anglesVector[0]));
+        bool crossProductSignPositive = vx*normalVector[1] - vy*normalVector[0] > 0 ? true : false;
         double newTheta;
-        if (crossProductSignNegative) { // Ball came from the left
-            newTheta = thetaAngle(vx, vy) - (M_PI - 2 * anglesVector[1]);            
-        } else { // Ball came from the right
-            newTheta = thetaAngle(vx, vy) + (M_PI - 2 * anglesVector[1]);          
+        if (crossProductSignPositive) { // Ball came from the right
+            newTheta = thetaAngle(vx, vy) + (M_PI - 2 * anglesVector[1]);
+        } else { // Ball came from the left
+            newTheta = thetaAngle(vx, vy) - (M_PI - 2 * anglesVector[1]);
         }
 
         // Handle angle periodicity
@@ -189,7 +185,7 @@ private:
     double radius;
 
 public:
-    State(int max_x, int max_y, bool rectangluar, double radius) : 
+    State(int max_x, int max_y, bool rectangular, double radius) : 
     max_x(max_x), max_y(max_y), rectangular(rectangular), radius(radius) {}
 
     void addBall(const Ball& ball) {
@@ -217,7 +213,7 @@ public:
     }
 
     double getRadius() {
-        return 250;
+        return radius;
     }
 };
 

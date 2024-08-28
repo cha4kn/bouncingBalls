@@ -147,8 +147,8 @@ def main():
     if (world_shape == "rectangle"):
         # Setup and plot initial state
         currentStateUpdate = initializeAtRandomRect()
-        gui.initGui(x_max, y_max)
-        gui.drawWindow(x_vals, y_vals, r_vals)
+        gui.initGuiRect(x_max, y_max)
+        gui.drawWindowRect(x_vals, y_vals, r_vals)
         
         print("Initial state: " + str(currentStateUpdate))
         # Running loop
@@ -172,7 +172,7 @@ def main():
                 x_vals[ballIndex] = tmpBall.x
                 y_vals[ballIndex] = tmpBall.y
 
-            gui.drawWindow(x_vals, y_vals, r_vals)
+            gui.drawWindowRect(x_vals, y_vals, r_vals)
             time.sleep(1/max_fps)
     else:
         # Setup and plot initial state

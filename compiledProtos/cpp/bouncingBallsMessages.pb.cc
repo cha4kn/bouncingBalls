@@ -5,401 +5,342 @@
 
 #include <algorithm>
 
-#include <google/protobuf/stubs/common.h>
-#include <google/protobuf/stubs/port.h>
 #include <google/protobuf/io/coded_stream.h>
-#include <google/protobuf/wire_format_lite_inl.h>
+#include <google/protobuf/extension_set.h>
+#include <google/protobuf/wire_format_lite.h>
 #include <google/protobuf/descriptor.h>
 #include <google/protobuf/generated_message_reflection.h>
 #include <google/protobuf/reflection_ops.h>
 #include <google/protobuf/wire_format.h>
-// This is a temporary google only hack
-#ifdef GOOGLE_PROTOBUF_ENFORCE_UNIQUENESS
-#include "third_party/protobuf/version.h"
-#endif
 // @@protoc_insertion_point(includes)
-
-namespace protobuf_bouncingBallsMessages_2eproto {
-extern PROTOBUF_INTERNAL_EXPORT_protobuf_bouncingBallsMessages_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_Ball;
-}  // namespace protobuf_bouncingBallsMessages_2eproto
+#include <google/protobuf/port_def.inc>
+extern PROTOBUF_INTERNAL_EXPORT_bouncingBallsMessages_2eproto ::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Ball_bouncingBallsMessages_2eproto;
 namespace ballProto {
 class stateUpdateDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<stateUpdate>
-      _instance;
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<stateUpdate> _instance;
 } _stateUpdate_default_instance_;
 class BallDefaultTypeInternal {
  public:
-  ::google::protobuf::internal::ExplicitlyConstructed<Ball>
-      _instance;
+  ::PROTOBUF_NAMESPACE_ID::internal::ExplicitlyConstructed<Ball> _instance;
 } _Ball_default_instance_;
 }  // namespace ballProto
-namespace protobuf_bouncingBallsMessages_2eproto {
-static void InitDefaultsstateUpdate() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::ballProto::_stateUpdate_default_instance_;
-    new (ptr) ::ballProto::stateUpdate();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::ballProto::stateUpdate::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<1> scc_info_stateUpdate =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsstateUpdate}, {
-      &protobuf_bouncingBallsMessages_2eproto::scc_info_Ball.base,}};
-
-static void InitDefaultsBall() {
+static void InitDefaultsscc_info_Ball_bouncingBallsMessages_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   {
     void* ptr = &::ballProto::_Ball_default_instance_;
     new (ptr) ::ballProto::Ball();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
   ::ballProto::Ball::InitAsDefaultInstance();
 }
 
-::google::protobuf::internal::SCCInfo<0> scc_info_Ball =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsBall}, {}};
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<0> scc_info_Ball_bouncingBallsMessages_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 0, 0, InitDefaultsscc_info_Ball_bouncingBallsMessages_2eproto}, {}};
 
-void InitDefaults() {
-  ::google::protobuf::internal::InitSCC(&scc_info_stateUpdate.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_Ball.base);
-}
+static void InitDefaultsscc_info_stateUpdate_bouncingBallsMessages_2eproto() {
+  GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-::google::protobuf::Metadata file_level_metadata[2];
-
-const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::ballProto::stateUpdate, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::ballProto::stateUpdate, balls_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::ballProto::stateUpdate, ballcount_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::ballProto::stateUpdate, timeutc_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::ballProto::stateUpdate, xmax_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::ballProto::stateUpdate, ymax_),
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::ballProto::Ball, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::ballProto::Ball, id_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::ballProto::Ball, x_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::ballProto::Ball, y_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::ballProto::Ball, vx_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::ballProto::Ball, vy_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::ballProto::Ball, r_),
-};
-static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, sizeof(::ballProto::stateUpdate)},
-  { 10, -1, sizeof(::ballProto::Ball)},
-};
-
-static ::google::protobuf::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::google::protobuf::Message*>(&::ballProto::_stateUpdate_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&::ballProto::_Ball_default_instance_),
-};
-
-void protobuf_AssignDescriptors() {
-  AddDescriptors();
-  AssignDescriptors(
-      "bouncingBallsMessages.proto", schemas, file_default_instances, TableStruct::offsets,
-      file_level_metadata, NULL, NULL);
-}
-
-void protobuf_AssignDescriptorsOnce() {
-  static ::google::protobuf::internal::once_flag once;
-  ::google::protobuf::internal::call_once(once, protobuf_AssignDescriptors);
-}
-
-void protobuf_RegisterTypes(const ::std::string&) GOOGLE_PROTOBUF_ATTRIBUTE_COLD;
-void protobuf_RegisterTypes(const ::std::string&) {
-  protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 2);
-}
-
-void AddDescriptorsImpl() {
-  InitDefaults();
-  static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-      "\n\033bouncingBallsMessages.proto\022\tballProto"
-      "\"m\n\013stateUpdate\022\036\n\005balls\030\001 \003(\0132\017.ballPro"
-      "to.Ball\022\021\n\tballCount\030\002 \001(\005\022\017\n\007timeUTC\030\003 "
-      "\001(\005\022\014\n\004xMax\030\004 \001(\005\022\014\n\004yMax\030\005 \001(\005\"K\n\004Ball\022"
-      "\n\n\002id\030\001 \001(\005\022\t\n\001x\030\002 \001(\001\022\t\n\001y\030\003 \001(\001\022\n\n\002vx\030"
-      "\004 \001(\001\022\n\n\002vy\030\005 \001(\001\022\t\n\001r\030\006 \001(\001b\006proto3"
-  };
-  ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 236);
-  ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
-    "bouncingBallsMessages.proto", &protobuf_RegisterTypes);
-}
-
-void AddDescriptors() {
-  static ::google::protobuf::internal::once_flag once;
-  ::google::protobuf::internal::call_once(once, AddDescriptorsImpl);
-}
-// Force AddDescriptors() to be called at dynamic initialization time.
-struct StaticDescriptorInitializer {
-  StaticDescriptorInitializer() {
-    AddDescriptors();
+  {
+    void* ptr = &::ballProto::_stateUpdate_default_instance_;
+    new (ptr) ::ballProto::stateUpdate();
+    ::PROTOBUF_NAMESPACE_ID::internal::OnShutdownDestroyMessage(ptr);
   }
-} static_descriptor_initializer;
-}  // namespace protobuf_bouncingBallsMessages_2eproto
+  ::ballProto::stateUpdate::InitAsDefaultInstance();
+}
+
+::PROTOBUF_NAMESPACE_ID::internal::SCCInfo<1> scc_info_stateUpdate_bouncingBallsMessages_2eproto =
+    {{ATOMIC_VAR_INIT(::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase::kUninitialized), 1, 0, InitDefaultsscc_info_stateUpdate_bouncingBallsMessages_2eproto}, {
+      &scc_info_Ball_bouncingBallsMessages_2eproto.base,}};
+
+static ::PROTOBUF_NAMESPACE_ID::Metadata file_level_metadata_bouncingBallsMessages_2eproto[2];
+static constexpr ::PROTOBUF_NAMESPACE_ID::EnumDescriptor const** file_level_enum_descriptors_bouncingBallsMessages_2eproto = nullptr;
+static constexpr ::PROTOBUF_NAMESPACE_ID::ServiceDescriptor const** file_level_service_descriptors_bouncingBallsMessages_2eproto = nullptr;
+
+const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_bouncingBallsMessages_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::ballProto::stateUpdate, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::ballProto::stateUpdate, balls_),
+  PROTOBUF_FIELD_OFFSET(::ballProto::stateUpdate, ballcount_),
+  PROTOBUF_FIELD_OFFSET(::ballProto::stateUpdate, timeutc_),
+  PROTOBUF_FIELD_OFFSET(::ballProto::stateUpdate, xmax_),
+  PROTOBUF_FIELD_OFFSET(::ballProto::stateUpdate, ymax_),
+  PROTOBUF_FIELD_OFFSET(::ballProto::stateUpdate, worldshape_),
+  PROTOBUF_FIELD_OFFSET(::ballProto::stateUpdate, circleradius_),
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::ballProto::Ball, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::ballProto::Ball, id_),
+  PROTOBUF_FIELD_OFFSET(::ballProto::Ball, x_),
+  PROTOBUF_FIELD_OFFSET(::ballProto::Ball, y_),
+  PROTOBUF_FIELD_OFFSET(::ballProto::Ball, vx_),
+  PROTOBUF_FIELD_OFFSET(::ballProto::Ball, vy_),
+  PROTOBUF_FIELD_OFFSET(::ballProto::Ball, r_),
+};
+static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
+  { 0, -1, sizeof(::ballProto::stateUpdate)},
+  { 12, -1, sizeof(::ballProto::Ball)},
+};
+
+static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::ballProto::_stateUpdate_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::ballProto::_Ball_default_instance_),
+};
+
+const char descriptor_table_protodef_bouncingBallsMessages_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
+  "\n\033bouncingBallsMessages.proto\022\tballProto"
+  "\"\227\001\n\013stateUpdate\022\036\n\005balls\030\001 \003(\0132\017.ballPr"
+  "oto.Ball\022\021\n\tballCount\030\002 \001(\005\022\017\n\007timeUTC\030\003"
+  " \001(\005\022\014\n\004xMax\030\004 \001(\005\022\014\n\004yMax\030\005 \001(\005\022\022\n\nworl"
+  "dShape\030\006 \001(\t\022\024\n\014circleRadius\030\007 \001(\005\"K\n\004Ba"
+  "ll\022\n\n\002id\030\001 \001(\005\022\t\n\001x\030\002 \001(\001\022\t\n\001y\030\003 \001(\001\022\n\n\002"
+  "vx\030\004 \001(\001\022\n\n\002vy\030\005 \001(\001\022\t\n\001r\030\006 \001(\001b\006proto3"
+  ;
+static const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable*const descriptor_table_bouncingBallsMessages_2eproto_deps[1] = {
+};
+static ::PROTOBUF_NAMESPACE_ID::internal::SCCInfoBase*const descriptor_table_bouncingBallsMessages_2eproto_sccs[2] = {
+  &scc_info_Ball_bouncingBallsMessages_2eproto.base,
+  &scc_info_stateUpdate_bouncingBallsMessages_2eproto.base,
+};
+static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_bouncingBallsMessages_2eproto_once;
+const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_bouncingBallsMessages_2eproto = {
+  false, false, descriptor_table_protodef_bouncingBallsMessages_2eproto, "bouncingBallsMessages.proto", 279,
+  &descriptor_table_bouncingBallsMessages_2eproto_once, descriptor_table_bouncingBallsMessages_2eproto_sccs, descriptor_table_bouncingBallsMessages_2eproto_deps, 2, 0,
+  schemas, file_default_instances, TableStruct_bouncingBallsMessages_2eproto::offsets,
+  file_level_metadata_bouncingBallsMessages_2eproto, 2, file_level_enum_descriptors_bouncingBallsMessages_2eproto, file_level_service_descriptors_bouncingBallsMessages_2eproto,
+};
+
+// Force running AddDescriptors() at dynamic initialization time.
+static bool dynamic_init_dummy_bouncingBallsMessages_2eproto = (static_cast<void>(::PROTOBUF_NAMESPACE_ID::internal::AddDescriptors(&descriptor_table_bouncingBallsMessages_2eproto)), true);
 namespace ballProto {
 
 // ===================================================================
 
 void stateUpdate::InitAsDefaultInstance() {
 }
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int stateUpdate::kBallsFieldNumber;
-const int stateUpdate::kBallCountFieldNumber;
-const int stateUpdate::kTimeUTCFieldNumber;
-const int stateUpdate::kXMaxFieldNumber;
-const int stateUpdate::kYMaxFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+class stateUpdate::_Internal {
+ public:
+};
 
-stateUpdate::stateUpdate()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_bouncingBallsMessages_2eproto::scc_info_stateUpdate.base);
+stateUpdate::stateUpdate(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena),
+  balls_(arena) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:ballProto.stateUpdate)
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:ballProto.stateUpdate)
 }
 stateUpdate::stateUpdate(const stateUpdate& from)
-  : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
       balls_(from.balls_) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  worldshape_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+  if (!from._internal_worldshape().empty()) {
+    worldshape_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), from._internal_worldshape(),
+      GetArena());
+  }
   ::memcpy(&ballcount_, &from.ballcount_,
-    static_cast<size_t>(reinterpret_cast<char*>(&ymax_) -
-    reinterpret_cast<char*>(&ballcount_)) + sizeof(ymax_));
+    static_cast<size_t>(reinterpret_cast<char*>(&circleradius_) -
+    reinterpret_cast<char*>(&ballcount_)) + sizeof(circleradius_));
   // @@protoc_insertion_point(copy_constructor:ballProto.stateUpdate)
 }
 
 void stateUpdate::SharedCtor() {
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&scc_info_stateUpdate_bouncingBallsMessages_2eproto.base);
+  worldshape_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   ::memset(&ballcount_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&ymax_) -
-      reinterpret_cast<char*>(&ballcount_)) + sizeof(ymax_));
+      reinterpret_cast<char*>(&circleradius_) -
+      reinterpret_cast<char*>(&ballcount_)) + sizeof(circleradius_));
 }
 
 stateUpdate::~stateUpdate() {
   // @@protoc_insertion_point(destructor:ballProto.stateUpdate)
   SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 void stateUpdate::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
+  worldshape_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
+void stateUpdate::ArenaDtor(void* object) {
+  stateUpdate* _this = reinterpret_cast< stateUpdate* >(object);
+  (void)_this;
+}
+void stateUpdate::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
 void stateUpdate::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const ::google::protobuf::Descriptor* stateUpdate::descriptor() {
-  ::protobuf_bouncingBallsMessages_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_bouncingBallsMessages_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
 const stateUpdate& stateUpdate::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_bouncingBallsMessages_2eproto::scc_info_stateUpdate.base);
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_stateUpdate_bouncingBallsMessages_2eproto.base);
   return *internal_default_instance();
 }
 
 
 void stateUpdate::Clear() {
 // @@protoc_insertion_point(message_clear_start:ballProto.stateUpdate)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   balls_.Clear();
+  worldshape_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
   ::memset(&ballcount_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&ymax_) -
-      reinterpret_cast<char*>(&ballcount_)) + sizeof(ymax_));
-  _internal_metadata_.Clear();
+      reinterpret_cast<char*>(&circleradius_) -
+      reinterpret_cast<char*>(&ballcount_)) + sizeof(circleradius_));
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-bool stateUpdate::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:ballProto.stateUpdate)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+const char* stateUpdate::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
       // repeated .ballProto.Ball balls = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
-                input, add_balls()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_balls(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else goto handle_unusual;
+        continue;
       // int32 ballCount = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &ballcount_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          ballcount_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
       // int32 timeUTC = 3;
-      case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(24u /* 24 & 0xFF */)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &timeutc_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
+          timeutc_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
       // int32 xMax = 4;
-      case 4: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(32u /* 32 & 0xFF */)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &xmax_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 32)) {
+          xmax_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
       // int32 yMax = 5;
-      case 5: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(40u /* 40 & 0xFF */)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &ymax_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 40)) {
+          ymax_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // string worldShape = 6;
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 50)) {
+          auto str = _internal_mutable_worldshape();
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
+          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "ballProto.stateUpdate.worldShape"));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      // int32 circleRadius = 7;
+      case 7:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 56)) {
+          circleradius_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
       default: {
       handle_unusual:
-        if (tag == 0) {
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
           goto success;
         }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, _internal_metadata_.mutable_unknown_fields()));
-        break;
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
       }
-    }
-  }
+    }  // switch
+  }  // while
 success:
-  // @@protoc_insertion_point(parse_success:ballProto.stateUpdate)
-  return true;
+  return ptr;
 failure:
-  // @@protoc_insertion_point(parse_failure:ballProto.stateUpdate)
-  return false;
-#undef DO_
+  ptr = nullptr;
+  goto success;
+#undef CHK_
 }
 
-void stateUpdate::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:ballProto.stateUpdate)
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // repeated .ballProto.Ball balls = 1;
-  for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->balls_size()); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1,
-      this->balls(static_cast<int>(i)),
-      output);
-  }
-
-  // int32 ballCount = 2;
-  if (this->ballcount() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->ballcount(), output);
-  }
-
-  // int32 timeUTC = 3;
-  if (this->timeutc() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->timeutc(), output);
-  }
-
-  // int32 xMax = 4;
-  if (this->xmax() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->xmax(), output);
-  }
-
-  // int32 yMax = 5;
-  if (this->ymax() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->ymax(), output);
-  }
-
-  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
-  }
-  // @@protoc_insertion_point(serialize_end:ballProto.stateUpdate)
-}
-
-::google::protobuf::uint8* stateUpdate::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+::PROTOBUF_NAMESPACE_ID::uint8* stateUpdate::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:ballProto.stateUpdate)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   // repeated .ballProto.Ball balls = 1;
   for (unsigned int i = 0,
-      n = static_cast<unsigned int>(this->balls_size()); i < n; i++) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageToArray(
-        1, this->balls(static_cast<int>(i)), deterministic, target);
+      n = static_cast<unsigned int>(this->_internal_balls_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(1, this->_internal_balls(i), target, stream);
   }
 
   // int32 ballCount = 2;
   if (this->ballcount() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->ballcount(), target);
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(2, this->_internal_ballcount(), target);
   }
 
   // int32 timeUTC = 3;
   if (this->timeutc() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->timeutc(), target);
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(3, this->_internal_timeutc(), target);
   }
 
   // int32 xMax = 4;
   if (this->xmax() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->xmax(), target);
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(4, this->_internal_xmax(), target);
   }
 
   // int32 yMax = 5;
   if (this->ymax() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(5, this->ymax(), target);
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(5, this->_internal_ymax(), target);
   }
 
-  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
+  // string worldShape = 6;
+  if (this->worldshape().size() > 0) {
+    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+      this->_internal_worldshape().data(), static_cast<int>(this->_internal_worldshape().length()),
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+      "ballProto.stateUpdate.worldShape");
+    target = stream->WriteStringMaybeAliased(
+        6, this->_internal_worldshape(), target);
+  }
+
+  // int32 circleRadius = 7;
+  if (this->circleradius() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(7, this->_internal_circleradius(), target);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:ballProto.stateUpdate)
   return target;
@@ -409,64 +350,77 @@ size_t stateUpdate::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:ballProto.stateUpdate)
   size_t total_size = 0;
 
-  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
-  }
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
   // repeated .ballProto.Ball balls = 1;
-  {
-    unsigned int count = static_cast<unsigned int>(this->balls_size());
-    total_size += 1UL * count;
-    for (unsigned int i = 0; i < count; i++) {
-      total_size +=
-        ::google::protobuf::internal::WireFormatLite::MessageSize(
-          this->balls(static_cast<int>(i)));
-    }
+  total_size += 1UL * this->_internal_balls_size();
+  for (const auto& msg : this->balls_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
+  }
+
+  // string worldShape = 6;
+  if (this->worldshape().size() > 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+        this->_internal_worldshape());
   }
 
   // int32 ballCount = 2;
   if (this->ballcount() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->ballcount());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_ballcount());
   }
 
   // int32 timeUTC = 3;
   if (this->timeutc() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->timeutc());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_timeutc());
   }
 
   // int32 xMax = 4;
   if (this->xmax() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->xmax());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_xmax());
   }
 
   // int32 yMax = 5;
   if (this->ymax() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->ymax());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_ymax());
   }
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  // int32 circleRadius = 7;
+  if (this->circleradius() != 0) {
+    total_size += 1 +
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_circleradius());
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
-void stateUpdate::MergeFrom(const ::google::protobuf::Message& from) {
+void stateUpdate::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:ballProto.stateUpdate)
   GOOGLE_DCHECK_NE(&from, this);
   const stateUpdate* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const stateUpdate>(
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<stateUpdate>(
           &from);
-  if (source == NULL) {
+  if (source == nullptr) {
   // @@protoc_insertion_point(generalized_merge_from_cast_fail:ballProto.stateUpdate)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:ballProto.stateUpdate)
     MergeFrom(*source);
@@ -476,26 +430,32 @@ void stateUpdate::MergeFrom(const ::google::protobuf::Message& from) {
 void stateUpdate::MergeFrom(const stateUpdate& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:ballProto.stateUpdate)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   balls_.MergeFrom(from.balls_);
+  if (from.worldshape().size() > 0) {
+    _internal_set_worldshape(from._internal_worldshape());
+  }
   if (from.ballcount() != 0) {
-    set_ballcount(from.ballcount());
+    _internal_set_ballcount(from._internal_ballcount());
   }
   if (from.timeutc() != 0) {
-    set_timeutc(from.timeutc());
+    _internal_set_timeutc(from._internal_timeutc());
   }
   if (from.xmax() != 0) {
-    set_xmax(from.xmax());
+    _internal_set_xmax(from._internal_xmax());
   }
   if (from.ymax() != 0) {
-    set_ymax(from.ymax());
+    _internal_set_ymax(from._internal_ymax());
+  }
+  if (from.circleradius() != 0) {
+    _internal_set_circleradius(from._internal_circleradius());
   }
 }
 
-void stateUpdate::CopyFrom(const ::google::protobuf::Message& from) {
+void stateUpdate::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
 // @@protoc_insertion_point(generalized_copy_from_start:ballProto.stateUpdate)
   if (&from == this) return;
   Clear();
@@ -513,23 +473,21 @@ bool stateUpdate::IsInitialized() const {
   return true;
 }
 
-void stateUpdate::Swap(stateUpdate* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void stateUpdate::InternalSwap(stateUpdate* other) {
   using std::swap;
-  CastToBase(&balls_)->InternalSwap(CastToBase(&other->balls_));
-  swap(ballcount_, other->ballcount_);
-  swap(timeutc_, other->timeutc_);
-  swap(xmax_, other->xmax_);
-  swap(ymax_, other->ymax_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  balls_.InternalSwap(&other->balls_);
+  worldshape_.Swap(&other->worldshape_, &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(stateUpdate, circleradius_)
+      + sizeof(stateUpdate::circleradius_)
+      - PROTOBUF_FIELD_OFFSET(stateUpdate, ballcount_)>(
+          reinterpret_cast<char*>(&ballcount_),
+          reinterpret_cast<char*>(&other->ballcount_));
 }
 
-::google::protobuf::Metadata stateUpdate::GetMetadata() const {
-  protobuf_bouncingBallsMessages_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_bouncingBallsMessages_2eproto::file_level_metadata[kIndexInFileMessages];
+::PROTOBUF_NAMESPACE_ID::Metadata stateUpdate::GetMetadata() const {
+  return GetMetadataStatic();
 }
 
 
@@ -537,26 +495,19 @@ void stateUpdate::InternalSwap(stateUpdate* other) {
 
 void Ball::InitAsDefaultInstance() {
 }
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int Ball::kIdFieldNumber;
-const int Ball::kXFieldNumber;
-const int Ball::kYFieldNumber;
-const int Ball::kVxFieldNumber;
-const int Ball::kVyFieldNumber;
-const int Ball::kRFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+class Ball::_Internal {
+ public:
+};
 
-Ball::Ball()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_bouncingBallsMessages_2eproto::scc_info_Ball.base);
+Ball::Ball(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:ballProto.Ball)
+  RegisterArenaDtor(arena);
+  // @@protoc_insertion_point(arena_constructor:ballProto.Ball)
 }
 Ball::Ball(const Ball& from)
-  : ::google::protobuf::Message(),
-      _internal_metadata_(NULL) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   ::memcpy(&x_, &from.x_,
     static_cast<size_t>(reinterpret_cast<char*>(&id_) -
     reinterpret_cast<char*>(&x_)) + sizeof(id_));
@@ -572,234 +523,157 @@ void Ball::SharedCtor() {
 Ball::~Ball() {
   // @@protoc_insertion_point(destructor:ballProto.Ball)
   SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
 void Ball::SharedDtor() {
+  GOOGLE_DCHECK(GetArena() == nullptr);
 }
 
+void Ball::ArenaDtor(void* object) {
+  Ball* _this = reinterpret_cast< Ball* >(object);
+  (void)_this;
+}
+void Ball::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
 void Ball::SetCachedSize(int size) const {
   _cached_size_.Set(size);
 }
-const ::google::protobuf::Descriptor* Ball::descriptor() {
-  ::protobuf_bouncingBallsMessages_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_bouncingBallsMessages_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
 const Ball& Ball::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_bouncingBallsMessages_2eproto::scc_info_Ball.base);
+  ::PROTOBUF_NAMESPACE_ID::internal::InitSCC(&::scc_info_Ball_bouncingBallsMessages_2eproto.base);
   return *internal_default_instance();
 }
 
 
 void Ball::Clear() {
 // @@protoc_insertion_point(message_clear_start:ballProto.Ball)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
   ::memset(&x_, 0, static_cast<size_t>(
       reinterpret_cast<char*>(&id_) -
       reinterpret_cast<char*>(&x_)) + sizeof(id_));
-  _internal_metadata_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
-bool Ball::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:ballProto.Ball)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+const char* Ball::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  ::PROTOBUF_NAMESPACE_ID::Arena* arena = GetArena(); (void)arena;
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    CHK_(ptr);
+    switch (tag >> 3) {
       // int32 id = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &id_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8)) {
+          id_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint64(&ptr);
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
       // double x = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(17u /* 17 & 0xFF */)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &x_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
+      case 2:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 17)) {
+          x_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else goto handle_unusual;
+        continue;
       // double y = 3;
-      case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(25u /* 25 & 0xFF */)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &y_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 25)) {
+          y_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else goto handle_unusual;
+        continue;
       // double vx = 4;
-      case 4: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(33u /* 33 & 0xFF */)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &vx_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
+      case 4:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 33)) {
+          vx_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else goto handle_unusual;
+        continue;
       // double vy = 5;
-      case 5: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(41u /* 41 & 0xFF */)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &vy_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 41)) {
+          vy_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else goto handle_unusual;
+        continue;
       // double r = 6;
-      case 6: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(49u /* 49 & 0xFF */)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &r_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
+      case 6:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 49)) {
+          r_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<double>(ptr);
+          ptr += sizeof(double);
+        } else goto handle_unusual;
+        continue;
       default: {
       handle_unusual:
-        if (tag == 0) {
+        if ((tag & 7) == 4 || tag == 0) {
+          ctx->SetLastTag(tag);
           goto success;
         }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, _internal_metadata_.mutable_unknown_fields()));
-        break;
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
       }
-    }
-  }
+    }  // switch
+  }  // while
 success:
-  // @@protoc_insertion_point(parse_success:ballProto.Ball)
-  return true;
+  return ptr;
 failure:
-  // @@protoc_insertion_point(parse_failure:ballProto.Ball)
-  return false;
-#undef DO_
+  ptr = nullptr;
+  goto success;
+#undef CHK_
 }
 
-void Ball::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:ballProto.Ball)
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // int32 id = 1;
-  if (this->id() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->id(), output);
-  }
-
-  // double x = 2;
-  if (this->x() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(2, this->x(), output);
-  }
-
-  // double y = 3;
-  if (this->y() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(3, this->y(), output);
-  }
-
-  // double vx = 4;
-  if (this->vx() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(4, this->vx(), output);
-  }
-
-  // double vy = 5;
-  if (this->vy() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(5, this->vy(), output);
-  }
-
-  // double r = 6;
-  if (this->r() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(6, this->r(), output);
-  }
-
-  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
-  }
-  // @@protoc_insertion_point(serialize_end:ballProto.Ball)
-}
-
-::google::protobuf::uint8* Ball::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
+::PROTOBUF_NAMESPACE_ID::uint8* Ball::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
   // @@protoc_insertion_point(serialize_to_array_start:ballProto.Ball)
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
   // int32 id = 1;
   if (this->id() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->id(), target);
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteInt32ToArray(1, this->_internal_id(), target);
   }
 
   // double x = 2;
-  if (this->x() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(2, this->x(), target);
+  if (!(this->x() <= 0 && this->x() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(2, this->_internal_x(), target);
   }
 
   // double y = 3;
-  if (this->y() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(3, this->y(), target);
+  if (!(this->y() <= 0 && this->y() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(3, this->_internal_y(), target);
   }
 
   // double vx = 4;
-  if (this->vx() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(4, this->vx(), target);
+  if (!(this->vx() <= 0 && this->vx() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(4, this->_internal_vx(), target);
   }
 
   // double vy = 5;
-  if (this->vy() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(5, this->vy(), target);
+  if (!(this->vy() <= 0 && this->vy() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(5, this->_internal_vy(), target);
   }
 
   // double r = 6;
-  if (this->r() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(6, this->r(), target);
+  if (!(this->r() <= 0 && this->r() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteDoubleToArray(6, this->_internal_r(), target);
   }
 
-  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
   // @@protoc_insertion_point(serialize_to_array_end:ballProto.Ball)
   return target;
@@ -809,57 +683,60 @@ size_t Ball::ByteSizeLong() const {
 // @@protoc_insertion_point(message_byte_size_start:ballProto.Ball)
   size_t total_size = 0;
 
-  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
-  }
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
   // double x = 2;
-  if (this->x() != 0) {
+  if (!(this->x() <= 0 && this->x() >= 0)) {
     total_size += 1 + 8;
   }
 
   // double y = 3;
-  if (this->y() != 0) {
+  if (!(this->y() <= 0 && this->y() >= 0)) {
     total_size += 1 + 8;
   }
 
   // double vx = 4;
-  if (this->vx() != 0) {
+  if (!(this->vx() <= 0 && this->vx() >= 0)) {
     total_size += 1 + 8;
   }
 
   // double vy = 5;
-  if (this->vy() != 0) {
+  if (!(this->vy() <= 0 && this->vy() >= 0)) {
     total_size += 1 + 8;
   }
 
   // double r = 6;
-  if (this->r() != 0) {
+  if (!(this->r() <= 0 && this->r() >= 0)) {
     total_size += 1 + 8;
   }
 
   // int32 id = 1;
   if (this->id() != 0) {
     total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->id());
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+        this->_internal_id());
   }
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
   SetCachedSize(cached_size);
   return total_size;
 }
 
-void Ball::MergeFrom(const ::google::protobuf::Message& from) {
+void Ball::MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:ballProto.Ball)
   GOOGLE_DCHECK_NE(&from, this);
   const Ball* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const Ball>(
+      ::PROTOBUF_NAMESPACE_ID::DynamicCastToGenerated<Ball>(
           &from);
-  if (source == NULL) {
+  if (source == nullptr) {
   // @@protoc_insertion_point(generalized_merge_from_cast_fail:ballProto.Ball)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
+    ::PROTOBUF_NAMESPACE_ID::internal::ReflectionOps::Merge(from, this);
   } else {
   // @@protoc_insertion_point(generalized_merge_from_cast_success:ballProto.Ball)
     MergeFrom(*source);
@@ -869,31 +746,31 @@ void Ball::MergeFrom(const ::google::protobuf::Message& from) {
 void Ball::MergeFrom(const Ball& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:ballProto.Ball)
   GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  if (from.x() != 0) {
-    set_x(from.x());
+  if (!(from.x() <= 0 && from.x() >= 0)) {
+    _internal_set_x(from._internal_x());
   }
-  if (from.y() != 0) {
-    set_y(from.y());
+  if (!(from.y() <= 0 && from.y() >= 0)) {
+    _internal_set_y(from._internal_y());
   }
-  if (from.vx() != 0) {
-    set_vx(from.vx());
+  if (!(from.vx() <= 0 && from.vx() >= 0)) {
+    _internal_set_vx(from._internal_vx());
   }
-  if (from.vy() != 0) {
-    set_vy(from.vy());
+  if (!(from.vy() <= 0 && from.vy() >= 0)) {
+    _internal_set_vy(from._internal_vy());
   }
-  if (from.r() != 0) {
-    set_r(from.r());
+  if (!(from.r() <= 0 && from.r() >= 0)) {
+    _internal_set_r(from._internal_r());
   }
   if (from.id() != 0) {
-    set_id(from.id());
+    _internal_set_id(from._internal_id());
   }
 }
 
-void Ball::CopyFrom(const ::google::protobuf::Message& from) {
+void Ball::CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) {
 // @@protoc_insertion_point(generalized_copy_from_start:ballProto.Ball)
   if (&from == this) return;
   Clear();
@@ -911,38 +788,32 @@ bool Ball::IsInitialized() const {
   return true;
 }
 
-void Ball::Swap(Ball* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
 void Ball::InternalSwap(Ball* other) {
   using std::swap;
-  swap(x_, other->x_);
-  swap(y_, other->y_);
-  swap(vx_, other->vx_);
-  swap(vy_, other->vy_);
-  swap(r_, other->r_);
-  swap(id_, other->id_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
+  _internal_metadata_.Swap<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(&other->_internal_metadata_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(Ball, id_)
+      + sizeof(Ball::id_)
+      - PROTOBUF_FIELD_OFFSET(Ball, x_)>(
+          reinterpret_cast<char*>(&x_),
+          reinterpret_cast<char*>(&other->x_));
 }
 
-::google::protobuf::Metadata Ball::GetMetadata() const {
-  protobuf_bouncingBallsMessages_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_bouncingBallsMessages_2eproto::file_level_metadata[kIndexInFileMessages];
+::PROTOBUF_NAMESPACE_ID::Metadata Ball::GetMetadata() const {
+  return GetMetadataStatic();
 }
 
 
 // @@protoc_insertion_point(namespace_scope)
 }  // namespace ballProto
-namespace google {
-namespace protobuf {
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::ballProto::stateUpdate* Arena::CreateMaybeMessage< ::ballProto::stateUpdate >(Arena* arena) {
-  return Arena::CreateInternal< ::ballProto::stateUpdate >(arena);
+PROTOBUF_NAMESPACE_OPEN
+template<> PROTOBUF_NOINLINE ::ballProto::stateUpdate* Arena::CreateMaybeMessage< ::ballProto::stateUpdate >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::ballProto::stateUpdate >(arena);
 }
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::ballProto::Ball* Arena::CreateMaybeMessage< ::ballProto::Ball >(Arena* arena) {
-  return Arena::CreateInternal< ::ballProto::Ball >(arena);
+template<> PROTOBUF_NOINLINE ::ballProto::Ball* Arena::CreateMaybeMessage< ::ballProto::Ball >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::ballProto::Ball >(arena);
 }
-}  // namespace protobuf
-}  // namespace google
+PROTOBUF_NAMESPACE_CLOSE
 
 // @@protoc_insertion_point(global_scope)
+#include <google/protobuf/port_undef.inc>

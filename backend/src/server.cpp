@@ -104,13 +104,19 @@ ballProto::stateUpdate calculateNextStateUpdate(ballProto::stateUpdate* previous
     int size = previousUpdate->ballcount();
     std::string world_shape = previousUpdate->worldshape();
     bool rectangular;
+    spdlog::debug("previousUpdate worldShape is: " + world_shape);
     if (std::strcmp(world_shape.c_str(), "rectangle") == 0) {
+        spdlog::debug("Setting rectangular true!");
         rectangular = true;
     } else {
+        spdlog::debug("Setting rectangular false!");
         rectangular = false;
     }
 
     State state = State(previousUpdate->xmax(), previousUpdate->ymax(), rectangular, previousUpdate->circleradius());
+    spdlog::debug("state getRectangular = " + state.getRectangular() ? "true" : "false" );
+    spdlog::debug("state getRadius = " + std::to_string(state.getRadius()));
+    
     for (int i = 0; i < size; i++) {
         ballProto::Ball tmpBall = previousUpdate->balls(i);
         state.addBall(Ball(tmpBall.x(), tmpBall.y(), tmpBall.vx(), tmpBall.vy(), tmpBall.r()));
@@ -133,6 +139,7 @@ ballProto::stateUpdate calculateNextStateUpdate(ballProto::stateUpdate* previous
     newState.set_ballcount(size);
     newState.set_xmax(previousUpdate->xmax());
     newState.set_ymax(previousUpdate->ymax());
+    newState.set_circleradius(previousUpdate->circleradius());
 
     spdlog::debug("New state is: " + newState.DebugString());
 

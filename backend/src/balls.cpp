@@ -148,15 +148,12 @@ double distanceBetweenBalls(Ball& ball1, Ball& ball2) {
 
 void handleCompleteState(State& state) {
     // Perform the actual calculation for this step
-    spdlog::debug("Performing circular step...");
-    performStateStepCircular(state);
-
-/*     if (state.getRectangular()) {
+    if (state.getRectangular()) {
         spdlog::debug("Performing rectangular step...");
         performStateStepRectangular(state); // TODO: restructure this method
     } else {
         spdlog::debug("Performing circular step...");
         performStateStepCircular(state);
-    } */
+    }
     spdlog::debug("Step completed!");
 }
