@@ -7,6 +7,7 @@ Created on Thu Jul  4 13:47:13 2024
 
 import zmq
 import time
+import sys
 import numpy as np
 import gui
 import bouncingBallsMessages_pb2 as ballProto
@@ -19,13 +20,16 @@ config_file_name = "config.txt"
 config_comm_section_name = "COMM"
 config_gui_section_name = "GUI"
 config_initial_state_section_name = "INITIAL STATE"
+allowed_shapes = ["rectangle", "circle"]
 
 # --------- Setup -------------------------------------------------------------
 def parseConfigFile():
     global number_of_balls
     global x_max
     global y_max
+    global r_min
     global r_max
+    global v_min
     global v_max
     global server_ip
     global server_port
@@ -47,10 +51,17 @@ def parseConfigFile():
     x_max = int(config.get(config_gui_section_name, 'width'))
     y_max = int(config.get(config_gui_section_name, 'height'))
     number_of_balls = int(config.get(config_initial_state_section_name, 'number_of_balls'))
+    r_min = int(config.get(config_initial_state_section_name, 'min_ball_radius'))
     r_max = int(config.get(config_initial_state_section_name, 'max_ball_radius'))
+    v_min = int(config.get(config_initial_state_section_name, 'min_ball_speed'))
     v_max = int(config.get(config_initial_state_section_name, 'max_ball_speed'))
     max_fps = int(config.get(config_gui_section_name, 'max_fps'))
-
+    
+    # Sanity check
+    if(sanityCheckParameters() != True):
+        print("Found error in runtime parameters!")
+        sys.exit(1)
+    
     # Initialize arrays
     x_vals = np.zeros((number_of_balls,1))
     y_vals = np.zeros((number_of_balls,1))
@@ -67,9 +78,66 @@ def parseConfigFile():
     print("Circle Radius: " + str(circle_radius))
     print("Max FPS: " + str(max_fps))
     print("Number of Balls: " + str(number_of_balls))
+    print("Min Ball Radius: " + str(r_min))
     print("Max Ball Radius: " + str(r_max))
+    print("Min Ball Speed: " + str(v_min))
     print("Max Ball Speed: " + str(v_max))
     print("--------------------------------------------------")
+
+def sanityCheckParameters() -> bool:
+    if (number_of_balls < 1):
+        print("Number of balls needs to be at least 1!")
+        return False
+        
+    if (x_max < 1):
+        print("x_max needs to be at least 1!")
+        return False
+    
+    if (y_max < 1):
+        print("y_max needs to be at least 1!")
+        return False
+    
+    if (r_min < 1):
+        print("r_min needs to be at least 1!")
+        return False
+
+    if (r_max < 1):
+        print("r_max needs to be at least 1!")
+        return False
+  
+    if (r_min >= r_max):
+        print("r_max needs to be bigger than r_min!")
+        return False
+
+    if (v_min < 1):
+        print("v_min needs to be at least 1!")
+        return False
+
+    if (v_max < 1):
+        print("v_max needs to be at least 1!")
+        return False
+  
+    if (v_min >= v_max):
+        print("v_max needs to be bigger than v_min!")
+        return False
+    
+    if (max_fps < 1):
+        print("max_fps needs to be at least 1!")
+        return False
+    
+    if (world_shape not in allowed_shapes):
+        print("world_shape: " + world_shape + " is not supported!")
+        return False
+    
+    if (circle_radius < 1):
+        print("circle_radius needs to be at least 1!")
+        return False
+    
+    if (r_max > circle_radius):
+        print("r_max cannot be larger than circle_radius!")
+        return False
+    
+    return True
 
 def setupZmqConnection():
     context = zmq.Context()
@@ -89,9 +157,9 @@ def initializeAtRandomRect():
         ball.id = i+1;
         ball.x = x_max * rd.uniform(0, 1)        
         ball.y = y_max * rd.uniform(0, 1)
-        ball.r = r_max * rd.uniform(0, 1) 
-        ball.vx = v_max * rd.uniform(0, 1)
-        ball.vy = v_max * rd.uniform(0, 1)
+        ball.r = r_min + (r_max - r_min) * rd.uniform(0, 1)
+        ball.vx = v_min + (v_max - v_min ) * rd.uniform(0, 1)
+        ball.vy = v_min + (v_max - v_min ) * rd.uniform(0, 1)
         
         # Put into the local storage
         x_vals[i] = ball.x
@@ -119,9 +187,9 @@ def initializeAtRandomCirc():
         distance = circle_radius * rd.uniform(0, 0.9)
         ball.x = distance * np.cos(angle)
         ball.y = distance * np.sin(angle)
-        ball.r = r_max * rd.uniform(0, 1) 
-        ball.vx = v_max * rd.uniform(0, 1)
-        ball.vy = v_max * rd.uniform(0, 1)
+        ball.r = r_min + (r_max - r_min) * rd.uniform(0, 1)
+        ball.vx = v_min + (v_max - v_min ) * rd.uniform(0, 1)
+        ball.vy = v_min + (v_max - v_min ) * rd.uniform(0, 1)
         
         # Put into the local storage
         x_vals[i] = ball.x

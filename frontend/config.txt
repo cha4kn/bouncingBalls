@@ -4,12 +4,14 @@ server_port = 5556
 
 [GUI]
 world_shape = circle
-circle_radius = 250
+circle_radius = 450
 width = 600
 height = 450
 max_fps = 30
 
 [INITIAL STATE]
-number_of_balls = 20
-max_ball_radius = 15
-max_ball_speed = 5
+number_of_balls = 50
+min_ball_radius = 8
+max_ball_radius = 20
+min_ball_speed = 2
+max_ball_speed = 6
