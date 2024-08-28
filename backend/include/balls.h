@@ -196,7 +196,7 @@ public:
         return balls;
     }
 
-    void setBalls(std::vector<Ball> newBalls) {
+    void setBalls(std::vector<Ball>& newBalls) {
         balls = newBalls;
     }
 
